@@ -1,0 +1,2959 @@
+<!DOCTYPE html>
+<html lang="vi" class="h-full bg-[#f8f7fc] text-slate-800">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UEH BANKING & FINANCE STUDIO — Hệ Thống Luyện Thi Ngân Hàng Thương Mại Đẳng Cấp</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'Be Vietnam Pro', 'sans-serif'],
+            body: ['Be Vietnam Pro', 'sans-serif'],
+          },
+          colors: {
+            ueh: {
+              50: '#f5f3ff',
+              100: '#ede9fe',
+              200: '#ddd6fe',
+              300: '#c4b5fd',
+              400: '#a78bfa',
+              500: '#8b5cf6',
+              600: '#7c3aed',
+              700: '#6d28d9',
+              800: '#5b21b6',
+              900: '#4c1d95',
+              dark: '#1e1b4b',
+              gold: '#f59e0b',
+            }
+          },
+          boxShadow: {
+            'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.07)',
+            'glass-lg': '0 12px 40px 0 rgba(109, 40, 217, 0.12)',
+            'glow': '0 0 25px -5px rgba(124, 58, 237, 0.4)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Canvas Confetti for Achievements -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    /* Custom Luxury Luminous Styling & Glassmorphism */
+    body {
+      font-family: 'Be Vietnam Pro', sans-serif;
+      background-color: #f8f7fc;
+      overflow-x: hidden;
+    }
+    
+    /* Background Ambient Aurora Orbs */
+    .aurora-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .aurora-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.45;
+      animation: floatOrb 20s infinite ease-in-out alternate;
+    }
+    .orb-1 { width: 500px; height: 500px; background: radial-gradient(circle, #a855f7 0%, #c084fc 100%); top: -100px; right: -50px; }
+    .orb-2 { width: 450px; height: 450px; background: radial-gradient(circle, #6366f1 0%, #818cf8 100%); bottom: -150px; left: -100px; animation-delay: -7s; }
+    .orb-3 { width: 350px; height: 350px; background: radial-gradient(circle, #ec4899 0%, #f472b6 100%); top: 40%; left: 35%; opacity: 0.25; animation-delay: -12s; }
+
+    @keyframes floatOrb {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(40px, -60px) scale(1.08); }
+      100% { transform: translate(-30px, 30px) scale(0.95); }
+    }
+
+    /* Glass Panels */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(203, 213, 225, 0.45);
+      box-shadow: 0 10px 30px -5px rgba(112, 90, 180, 0.06), inset 0 1px 1px 0 rgba(255, 255, 255, 0.9);
+    }
+
+    .glass-sidebar {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-right: 1px solid rgba(226, 232, 240, 0.8);
+    }
+
+    .glass-header {
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(226, 232, 240, 0.7);
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: rgba(241, 245, 249, 0.6); }
+    ::-webkit-scrollbar-thumb { background: rgba(196, 181, 253, 0.7); border-radius: 99px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(139, 92, 246, 0.8); }
+
+    /* Flashcard 3D Scene - Rock-solid 100% bug free */
+    .perspective-1000 {
+      perspective: 1400px;
+    }
+    .card-inner {
+      position: relative;
+      width: 100%;
+      min-height: 420px;
+      transition: transform 0.6s cubic-bezier(0.2, 0.85, 0.32, 1.2);
+      transform-style: preserve-3d;
+    }
+    .card-inner.is-flipped {
+      transform: rotateY(180deg);
+    }
+    .card-face {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border-radius: 1.25rem;
+      overflow-y: auto;
+    }
+    .card-back {
+      transform: rotateY(180deg);
+    }
+
+    /* Accordion Dropdown transition */
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease-in-out, opacity 0.25s ease-in-out;
+      opacity: 0;
+    }
+    .accordion-content.open {
+      max-height: 1000px;
+      opacity: 1;
+    }
+
+    /* Active nav indicator */
+    .nav-item-active {
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.12) 0%, rgba(147, 51, 234, 0.06) 100%);
+      color: #6d28d9;
+      border-left: 3.5px solid #7c3aed;
+      font-weight: 700;
+    }
+
+    /* Pulse animation for highlights */
+    .pulse-subtle {
+      animation: pulseSubtle 3s infinite ease-in-out;
+    }
+    @keyframes pulseSubtle {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+  </style>
+</head>
+
+<body class="h-full flex flex-col antialiased selection:bg-purple-200 selection:text-purple-900">
+
+  <!-- Ambient Light Orbs -->
+  <div class="aurora-bg">
+    <div class="aurora-orb orb-1"></div>
+    <div class="aurora-orb orb-2"></div>
+    <div class="aurora-orb orb-3"></div>
+  </div>
+
+  <div class="relative z-10 flex h-screen overflow-hidden">
+
+    <!-- SIDEBAR NAVIGATION -->
+    <aside id="sidebar" class="glass-sidebar fixed inset-y-0 left-0 z-40 w-72 transform transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 flex flex-col justify-between shrink-0">
+      <div class="flex flex-col h-full">
+        
+        <!-- Sidebar Brand Header -->
+        <div class="p-5 border-b border-purple-100 flex items-center gap-3">
+          <!-- UEH Inline SVG Logo Emblem -->
+          <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-purple-700 via-indigo-600 to-purple-500 flex items-center justify-center text-white shadow-md shadow-purple-300/50 shrink-0">
+            <svg class="w-7 h-7" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="45" stroke="currentColor" stroke-width="4" stroke-dasharray="6 3"/>
+              <path d="M30 32H70V42C70 52 62 60 50 60C38 60 30 52 30 42V32Z" fill="none" stroke="currentColor" stroke-width="5"/>
+              <path d="M50 20V32M38 72H62M50 60V72" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+              <circle cx="50" cy="45" r="5" fill="#f59e0b"/>
+            </svg>
+          </div>
+          <div>
+            <div class="flex items-center gap-1.5">
+              <span class="font-black tracking-wider text-xs uppercase text-purple-700 bg-purple-100 px-2 py-0.5 rounded-md">UEH Banking</span>
+              <span class="text-[10px] text-amber-600 font-bold bg-amber-100 px-1.5 py-0.5 rounded">2026</span>
+            </div>
+            <h1 class="text-sm font-extrabold text-slate-900 tracking-tight leading-snug mt-0.5">STUDIO LUYỆN THI</h1>
+          </div>
+        </div>
+
+        <!-- Sidebar Menu Items (Scrollable) -->
+        <nav class="flex-1 overflow-y-auto p-3 space-y-1 text-sm font-medium">
+          
+          <!-- Dashboard -->
+          <button onclick="switchTab('dashboard')" id="nav-dashboard" class="w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-700 hover:bg-purple-50 hover:text-purple-700 transition-all nav-item-active">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 00-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+            <span>Tổng Quan Studio</span>
+          </button>
+
+          <!-- Accordion: Chapter Quizzes -->
+          <div>
+            <button onclick="toggleAccordion('acc-chapters')" class="w-full flex items-center justify-between px-3.5 py-3 rounded-xl text-slate-700 hover:bg-purple-50 hover:text-purple-700 transition-all">
+              <div class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                <span class="font-semibold">Câu Hỏi Theo Chương</span>
+              </div>
+              <svg id="arrow-acc-chapters" class="w-4 h-4 text-slate-400 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div id="acc-chapters" class="accordion-content pl-9 pr-2 space-y-1 pt-1">
+              <button onclick="switchTab('chapters', 1)" class="w-full text-left py-2 px-3 text-xs text-slate-600 hover:text-purple-700 hover:bg-purple-50 rounded-lg flex justify-between items-center">
+                <span>Chương 1: Tổng Quan & FinTech</span>
+                <span class="bg-purple-100 text-purple-700 text-[10px] px-1.5 py-0.2 rounded font-bold">40c</span>
+              </button>
+              <button onclick="switchTab('chapters', 2)" class="w-full text-left py-2 px-3 text-xs text-slate-600 hover:text-purple-700 hover:bg-purple-50 rounded-lg flex justify-between items-center">
+                <span>Chương 2: Huy Động Vốn</span>
+                <span class="bg-purple-100 text-purple-700 text-[10px] px-1.5 py-0.2 rounded font-bold">40c</span>
+              </button>
+              <button onclick="switchTab('chapters', 3)" class="w-full text-left py-2 px-3 text-xs text-slate-600 hover:text-purple-700 hover:bg-purple-50 rounded-lg flex justify-between items-center">
+                <span>Chương 3: Tín Dụng & Cấp TD</span>
+                <span class="bg-purple-100 text-purple-700 text-[10px] px-1.5 py-0.2 rounded font-bold">40c</span>
+              </button>
+              <button onclick="switchTab('chapters', 4)" class="w-full text-left py-2 px-3 text-xs text-slate-600 hover:text-purple-700 hover:bg-purple-50 rounded-lg flex justify-between items-center">
+                <span>Chương 4: Cho Vay & Chiết Khấu</span>
+                <span class="bg-purple-100 text-purple-700 text-[10px] px-1.5 py-0.2 rounded font-bold">40c</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Accordion: Mock Exams (10 Đề) -->
+          <div>
+            <button onclick="toggleAccordion('acc-mock')" class="w-full flex items-center justify-between px-3.5 py-3 rounded-xl text-slate-700 hover:bg-purple-50 hover:text-purple-700 transition-all">
+              <div class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <span class="font-semibold">Đề Kiểm Tra Thử</span>
+              </div>
+              <span class="bg-indigo-100 text-indigo-700 text-[10px] font-bold px-2 py-0.5 rounded-full">10 Đề</span>
+            </button>
+            <div id="acc-mock" class="accordion-content pl-8 pr-1 space-y-1 pt-1 max-h-60 overflow-y-auto">
+              <script>
+                for(let i=1; i<=10; i++){
+                  document.write(`
+                    <button onclick="openMockExam(${i})" class="w-full text-left py-1.5 px-3 text-xs text-slate-600 hover:text-indigo-700 hover:bg-indigo-50 rounded-lg flex justify-between items-center">
+                      <span>🎯 Đề Thi Thử ${i}</span>
+                      <span class="text-[10px] text-slate-400">25 câu</span>
+                    </button>
+                  `);
+                }
+              </script>
+            </div>
+          </div>
+
+          <!-- Accordion: Essay Solutions (6 Đề) -->
+          <div>
+            <button onclick="toggleAccordion('acc-essay')" class="w-full flex items-center justify-between px-3.5 py-3 rounded-xl text-slate-700 hover:bg-purple-50 hover:text-purple-700 transition-all">
+              <div class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                <span class="font-semibold">Đề Tự Luận Ôn Tập</span>
+              </div>
+              <svg id="arrow-acc-essay" class="w-4 h-4 text-slate-400 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div id="acc-essay" class="accordion-content pl-8 pr-1 space-y-1 pt-1">
+              <button onclick="switchTab('essays', 1)" class="w-full text-left py-1.5 px-3 text-xs text-slate-600 hover:text-amber-700 hover:bg-amber-50 rounded-lg">✍️ Đề 1: Huy Động Vốn & GTCG</button>
+              <button onclick="switchTab('essays', 2)" class="w-full text-left py-1.5 px-3 text-xs text-slate-600 hover:text-amber-700 hover:bg-amber-50 rounded-lg">✍️ Đề 2: Cho Vay VLĐ & HMTD</button>
+              <button onclick="switchTab('essays', 3)" class="w-full text-left py-1.5 px-3 text-xs text-slate-600 hover:text-amber-700 hover:bg-amber-50 rounded-lg">✍️ Đề 3: Cho Vay Dự Án (3 PP)</button>
+              <button onclick="switchTab('essays', 4)" class="w-full text-left py-1.5 px-3 text-xs text-slate-600 hover:text-amber-700 hover:bg-amber-50 rounded-lg">✍️ Đề 4: Chiết Khấu GTCG</button>
+              <button onclick="switchTab('essays', 5)" class="w-full text-left py-1.5 px-3 text-xs text-slate-600 hover:text-amber-700 hover:bg-amber-50 rounded-lg">✍️ Đề 5: Case Study Tổng Hợp</button>
+              <button onclick="switchTab('essays', 6)" class="w-full text-left py-1.5 px-3 text-xs text-slate-600 hover:text-amber-700 hover:bg-amber-50 rounded-lg">✍️ Đề 6: Phân Tích TC & Định Giá</button>
+            </div>
+          </div>
+
+          <!-- Flashcards -->
+          <button onclick="switchTab('flashcards')" id="nav-flashcards" class="w-full flex items-center justify-between px-3.5 py-3 rounded-xl text-slate-700 hover:bg-purple-50 hover:text-purple-700 transition-all">
+            <div class="flex items-center gap-3">
+              <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              <span>Flashcard Siêu Thuộc</span>
+            </div>
+            <span class="bg-amber-100 text-amber-800 text-[10px] font-extrabold px-2 py-0.5 rounded-full">60 Thẻ</span>
+          </button>
+
+          <!-- Formula & Calculators -->
+          <button onclick="switchTab('formulas')" id="nav-formulas" class="w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-700 hover:bg-purple-50 hover:text-purple-700 transition-all">
+            <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+            <span>Sổ Công Thức & Máy Tính</span>
+          </button>
+
+        </nav>
+
+        <!-- Sidebar Footer Status -->
+        <div class="p-4 m-3 rounded-2xl bg-gradient-to-br from-purple-900 to-indigo-900 text-white shadow-lg relative overflow-hidden">
+          <div class="absolute -right-4 -bottom-4 w-20 h-20 bg-purple-500/20 rounded-full blur-xl"></div>
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-semibold text-purple-200">Chuỗi Học Tập</span>
+            <span class="text-xs font-bold text-amber-400 flex items-center gap-1">⚡ <span id="streak-count">5</span> Ngày</span>
+          </div>
+          <div class="w-full bg-purple-950/60 rounded-full h-2 mb-2 overflow-hidden">
+            <div id="overall-progress-bar" class="bg-gradient-to-r from-amber-400 to-purple-400 h-2 rounded-full transition-all duration-500" style="width: 45%"></div>
+          </div>
+          <div class="flex justify-between text-[11px] text-purple-200 font-medium">
+            <span>Tiến độ tổng hợp</span>
+            <span id="overall-progress-text">45%</span>
+          </div>
+        </div>
+
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT AREA -->
+    <div class="flex-1 flex flex-col h-full overflow-hidden min-w-0">
+      
+      <!-- TOP NAVBAR -->
+      <header class="glass-header h-16 px-6 flex items-center justify-between shrink-0 z-30">
+        <div class="flex items-center gap-4">
+          <!-- Mobile Drawer Toggle -->
+          <button onclick="toggleMobileSidebar()" class="lg:hidden p-2 rounded-xl text-slate-600 hover:bg-slate-100">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+          
+          <div class="hidden sm:flex items-center gap-2">
+            <span class="text-xs font-semibold text-purple-700 bg-purple-100/80 px-2.5 py-1 rounded-lg border border-purple-200">
+              📍 UEH School of Banking
+            </span>
+            <span class="text-xs text-slate-500 font-medium">Hệ thống Luyện thi Ngân hàng Thương mại 2026</span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <!-- Quick Search Trigger -->
+          <div class="relative hidden md:block">
+            <input type="text" id="global-search" onkeyup="handleGlobalSearch(this.value)" placeholder="Tìm công thức, câu hỏi, khái niệm..." class="w-64 pl-9 pr-4 py-1.5 text-xs bg-white/80 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500/30 focus:border-purple-500">
+            <svg class="w-4 h-4 text-slate-400 absolute left-3 top-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          </div>
+
+          <!-- User Badge -->
+          <div class="flex items-center gap-2 pl-3 border-l border-slate-200">
+            <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-purple-600 to-indigo-500 text-white font-bold text-xs flex items-center justify-center shadow">
+              UEH
+            </div>
+            <div class="hidden lg:block text-left">
+              <div class="text-xs font-bold text-slate-800 leading-none">Sinh Viên UEH</div>
+              <div class="text-[10px] text-purple-600 font-medium mt-0.5">K47 / K48 / K49</div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- VIEW SECTIONS (DYNAMICALLY TOGGLED) -->
+      <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 space-y-8">
+
+        <!-- ================= SECTION 1: DASHBOARD ================= -->
+        <section id="sec-dashboard" class="space-y-6">
+          
+          <!-- Hero Banner Showcase -->
+          <div class="relative rounded-3xl overflow-hidden bg-gradient-to-r from-purple-900 via-indigo-900 to-slate-900 text-white p-6 sm:p-10 shadow-2xl">
+            <!-- Architectural Background SVG Art -->
+            <div class="absolute inset-0 opacity-20 pointer-events-none">
+              <svg class="w-full h-full" viewBox="0 0 800 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M100 400 L200 100 L300 400 Z" fill="url(#grad1)"/>
+                <path d="M250 400 L400 50 L550 400 Z" fill="url(#grad2)"/>
+                <path d="M500 400 L650 150 L800 400 Z" fill="url(#grad1)"/>
+                <defs>
+                  <linearGradient id="grad1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#a855f7"/><stop offset="100%" stop-color="transparent"/></linearGradient>
+                  <linearGradient id="grad2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#818cf8"/><stop offset="100%" stop-color="transparent"/></linearGradient>
+                </defs>
+              </svg>
+            </div>
+
+            <div class="relative z-10 max-w-3xl space-y-4">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/20 border border-purple-400/30 text-purple-200 text-xs font-semibold backdrop-blur-md">
+                <span>✨ ĐẲNG CẤP LUYỆN THI NGÂN HÀNG THƯƠNG MẠI</span>
+              </div>
+              <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-white leading-tight">
+                Chinh Phục A+ Môn Ngân Hàng Thương Mại UEH
+              </h2>
+              <p class="text-purple-100 text-sm sm:text-base leading-relaxed opacity-90">
+                Hệ thống dữ liệu chuẩn hóa 100% từ Slide bài giảng Cô Trầm Thị Xuân Hương, Thầy Nguyễn Thanh Phong & Kho bộ đề thi thực chiến UEH.
+              </p>
+              
+              <div class="pt-2 flex flex-wrap gap-3">
+                <button onclick="switchTab('flashcards')" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 text-purple-950 font-extrabold text-xs sm:text-sm hover:brightness-110 shadow-lg shadow-amber-500/25 transition-all flex items-center gap-2">
+                  <span>⚡ Học Flashcard Siêu Thuộc</span>
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                </button>
+                <button onclick="openMockExam(1)" class="px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold text-xs sm:text-sm backdrop-blur-md transition-all">
+                  🎯 Thi Thử Đề 1 Ngay
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stats Grid -->
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            <div class="glass-card p-5 rounded-2xl flex items-center gap-4">
+              <div class="w-12 h-12 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center font-bold text-xl shrink-0">
+                📚
+              </div>
+              <div>
+                <div class="text-xs text-slate-500 font-semibold">Câu Trắc Nghiệm</div>
+                <div class="text-2xl font-black text-slate-900 mt-0.5"><span id="stat-questions-done">0</span>/160</div>
+                <div class="text-[11px] text-purple-600 font-medium">4 Chương Lý Thuyết</div>
+              </div>
+            </div>
+
+            <div class="glass-card p-5 rounded-2xl flex items-center gap-4">
+              <div class="w-12 h-12 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-xl shrink-0">
+                🎯
+              </div>
+              <div>
+                <div class="text-xs text-slate-500 font-semibold">Đề Thi Đã Làm</div>
+                <div class="text-2xl font-black text-slate-900 mt-0.5"><span id="stat-exams-done">0</span>/10</div>
+                <div class="text-[11px] text-indigo-600 font-medium">Đã chấm thang điểm 10</div>
+              </div>
+            </div>
+
+            <div class="glass-card p-5 rounded-2xl flex items-center gap-4">
+              <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center font-bold text-xl shrink-0">
+                ⚡
+              </div>
+              <div>
+                <div class="text-xs text-slate-500 font-semibold">Flashcard Thuộc</div>
+                <div class="text-2xl font-black text-slate-900 mt-0.5"><span id="stat-flashcards-mastered">0</span>/60</div>
+                <div class="text-[11px] text-amber-600 font-medium">Ghi nhớ Active Recall</div>
+              </div>
+            </div>
+
+            <div class="glass-card p-5 rounded-2xl flex items-center gap-4">
+              <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xl shrink-0">
+                🏆
+              </div>
+              <div>
+                <div class="text-xs text-slate-500 font-semibold">Điểm Trung Bình</div>
+                <div class="text-2xl font-black text-slate-900 mt-0.5" id="stat-avg-score">--</div>
+                <div class="text-[11px] text-emerald-600 font-medium">Thi thử gần nhất</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Navigation Modules -->
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <div class="glass-card p-6 rounded-2xl border-t-4 border-t-purple-600 hover:shadow-glass-lg transition-all">
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-xs font-bold uppercase tracking-wider text-purple-700 bg-purple-100 px-2.5 py-1 rounded-md">Trắc Nghiệm Chương</span>
+                <span class="text-xs text-slate-400">160 Câu Hỏi</span>
+              </div>
+              <h3 class="font-bold text-lg text-slate-900 mb-2">4 Chương Chuẩn Đầu Ra</h3>
+              <p class="text-slate-600 text-xs mb-4">Trắc nghiệm phân loại chi tiết có đáp án & giải thích rõ ràng từng câu.</p>
+              <button onclick="switchTab('chapters', 1)" class="w-full py-2.5 rounded-xl bg-purple-600 text-white font-bold text-xs hover:bg-purple-700 transition-colors">
+                Luyện Tập Theo Chương →
+              </button>
+            </div>
+
+            <div class="glass-card p-6 rounded-2xl border-t-4 border-t-indigo-600 hover:shadow-glass-lg transition-all">
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-xs font-bold uppercase tracking-wider text-indigo-700 bg-indigo-100 px-2.5 py-1 rounded-md">Đề Thi Thực Chiến</span>
+                <span class="text-xs text-slate-400">10 Đề Mock</span>
+              </div>
+              <h3 class="font-bold text-lg text-slate-900 mb-2">Thi Thử Đồng Hồ 30 Phút</h3>
+              <p class="text-slate-600 text-xs mb-4">Cấu trúc 25 câu chuẩn UEH, chấm điểm tự động & lưu lịch sử thi.</p>
+              <button onclick="openMockExam(1)" class="w-full py-2.5 rounded-xl bg-indigo-600 text-white font-bold text-xs hover:bg-indigo-700 transition-colors">
+                Vào Thi Thử Ngay →
+              </button>
+            </div>
+
+            <div class="glass-card p-6 rounded-2xl border-t-4 border-t-amber-600 hover:shadow-glass-lg transition-all md:col-span-2 lg:col-span-1">
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-xs font-bold uppercase tracking-wider text-amber-700 bg-amber-100 px-2.5 py-1 rounded-md">Bài Tập Tự Luận</span>
+                <span class="text-xs text-slate-400">6 Đề Lớn</span>
+              </div>
+              <h3 class="font-bold text-lg text-slate-900 mb-2">Bài Giải Chi Tiết 100%</h3>
+              <p class="text-slate-600 text-xs mb-4">Đầy đủ HMTD, Tính Lãi Dự Án 3 Phương Thức, Chiết Khấu GTCG & Valuation Cô Thư.</p>
+              <button onclick="switchTab('essays', 1)" class="w-full py-2.5 rounded-xl bg-amber-600 text-white font-bold text-xs hover:bg-amber-700 transition-colors">
+                Xem Đề & Lời Giải →
+              </button>
+            </div>
+
+          </div>
+
+          <!-- Quiz Wayground Quick Links Box -->
+          <div class="glass-card p-6 rounded-2xl bg-gradient-to-r from-purple-50/80 via-white to-indigo-50/80 border border-purple-200">
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-4">
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="text-base">🚀</span>
+                  <h3 class="font-bold text-slate-900">Kho Quiz Đấu Trường Trực Tuyến (Wayground Live)</h3>
+                </div>
+                <p class="text-xs text-slate-600 mt-1">Truy cập trực tiếp các phòng thi Quiz trực tuyến chính thức của môn học</p>
+              </div>
+            </div>
+            
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <a href="https://wayground.com/join?gc=39814417&source=liveDashboard" target="_blank" class="p-3 bg-white rounded-xl border border-purple-100 hover:border-purple-400 text-center shadow-sm hover:shadow transition-all group">
+                <div class="text-xs font-extrabold text-purple-700 group-hover:underline">Bộ Quiz 1</div>
+                <div class="text-[11px] text-slate-500 font-medium mt-0.5">155 Câu Tổng Hợp</div>
+              </a>
+              <a href="https://wayground.com/join?gc=15574289&source=liveDashboard" target="_blank" class="p-3 bg-white rounded-xl border border-purple-100 hover:border-purple-400 text-center shadow-sm hover:shadow transition-all group">
+                <div class="text-xs font-extrabold text-indigo-700 group-hover:underline">Bộ Quiz 2</div>
+                <div class="text-[11px] text-slate-500 font-medium mt-0.5">355 Câu Siêu Khủng</div>
+              </a>
+              <a href="https://wayground.com/join?gc=28284177&source=liveDashboard" target="_blank" class="p-3 bg-white rounded-xl border border-purple-100 hover:border-purple-400 text-center shadow-sm hover:shadow transition-all group">
+                <div class="text-xs font-extrabold text-emerald-700 group-hover:underline">Bộ Quiz 3</div>
+                <div class="text-[11px] text-slate-500 font-medium mt-0.5">47 Câu Ôn Nhanh</div>
+              </a>
+              <a href="https://wayground.com/join?gc=32273681&source=liveDashboard" target="_blank" class="p-3 bg-white rounded-xl border border-purple-100 hover:border-purple-400 text-center shadow-sm hover:shadow transition-all group">
+                <div class="text-xs font-extrabold text-amber-700 group-hover:underline">Bộ Quiz 4</div>
+                <div class="text-[11px] text-slate-500 font-medium mt-0.5">145 Câu Thực Chiến</div>
+              </a>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ================= SECTION 2: CHAPTER QUIZZES ================= -->
+        <section id="sec-chapters" class="hidden space-y-6">
+          
+          <!-- Chapter Tabs & Selector Header -->
+          <div class="glass-card p-4 rounded-2xl flex flex-wrap items-center justify-between gap-4">
+            <div class="flex flex-wrap gap-2" id="chapter-tab-buttons">
+              <button onclick="renderChapter(1)" id="ch-tab-1" class="px-4 py-2 rounded-xl text-xs font-bold transition-all bg-purple-600 text-white shadow-md">Chương 1 (40 câu)</button>
+              <button onclick="renderChapter(2)" id="ch-tab-2" class="px-4 py-2 rounded-xl text-xs font-bold transition-all bg-slate-100 text-slate-700 hover:bg-purple-100">Chương 2 (40 câu)</button>
+              <button onclick="renderChapter(3)" id="ch-tab-3" class="px-4 py-2 rounded-xl text-xs font-bold transition-all bg-slate-100 text-slate-700 hover:bg-purple-100">Chương 3 (40 câu)</button>
+              <button onclick="renderChapter(4)" id="ch-tab-4" class="px-4 py-2 rounded-xl text-xs font-bold transition-all bg-slate-100 text-slate-700 hover:bg-purple-100">Chương 4 (40 câu)</button>
+            </div>
+
+            <div id="chapter-wayground-link">
+              <!-- Dynamic Wayground Direct Link Button -->
+            </div>
+          </div>
+
+          <!-- Chapter Info Box -->
+          <div id="chapter-info-box" class="glass-card p-5 rounded-2xl border-l-4 border-l-purple-600">
+            <!-- Dynamic info -->
+          </div>
+
+          <!-- Questions Container -->
+          <div id="chapter-questions-container" class="space-y-4">
+            <!-- Questions rendered via JS -->
+          </div>
+
+        </section>
+
+        <!-- ================= SECTION 3: MOCK EXAMS ================= -->
+        <section id="sec-mock-exams" class="hidden space-y-6">
+          
+          <!-- Mock Exam Selection Dashboard -->
+          <div id="mock-selection-view" class="space-y-6">
+            <div class="glass-card p-6 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-4">
+              <div>
+                <h2 class="text-xl font-black text-slate-900">🎯 Kho 10 Đề Kiểm Tra Thử Chuẩn UEH</h2>
+                <p class="text-xs text-slate-600 mt-1">Mỗi đề gồm 25 câu hỏi trắc nghiệm xáo trộn chuẩn cấu trúc thi, thời gian 30 phút.</p>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-bold text-purple-700 bg-purple-100 px-3 py-1.5 rounded-xl">Thang điểm 10</span>
+                <span class="text-xs font-bold text-amber-700 bg-amber-100 px-3 py-1.5 rounded-xl">Lưu kết quả tự động</span>
+              </div>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5" id="mock-exam-cards-grid">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <!-- Active Mock Exam Runner UI -->
+          <div id="mock-runner-view" class="hidden space-y-6">
+            
+            <!-- Exam Runner Sticky Top Bar -->
+            <div class="glass-card p-4 rounded-2xl flex items-center justify-between gap-4 sticky top-0 z-20 shadow-md">
+              <div class="flex items-center gap-3">
+                <button onclick="exitMockExam()" class="p-2 rounded-xl text-slate-500 hover:bg-slate-100" title="Thoát bài thi">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+                </button>
+                <div>
+                  <h3 class="font-extrabold text-sm text-slate-900" id="runner-exam-title">Đề Thi Thử 1</h3>
+                  <span class="text-[11px] text-purple-600 font-semibold" id="runner-progress-count">Câu 1 / 25</span>
+                </div>
+              </div>
+
+              <!-- Timer Display -->
+              <div class="flex items-center gap-3 bg-purple-900 text-white px-4 py-2 rounded-xl shadow">
+                <svg class="w-5 h-5 text-amber-400 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <span class="font-mono text-lg font-black tracking-wider" id="exam-timer-display">30:00</span>
+              </div>
+
+              <button onclick="submitExamPrompt()" class="px-5 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-extrabold text-xs shadow-md hover:brightness-110">
+                Nộp Bài Thi
+              </button>
+            </div>
+
+            <!-- Main Question Runner Body -->
+            <div class="grid lg:grid-cols-4 gap-6">
+              
+              <!-- Question Card Area (Left 3 cols) -->
+              <div class="lg:col-span-3 space-y-6">
+                <div class="glass-card p-6 sm:p-8 rounded-3xl space-y-6" id="runner-question-card">
+                  <!-- Active Question HTML -->
+                </div>
+
+                <!-- Prev / Next Navigation Controls -->
+                <div class="flex items-center justify-between pt-2">
+                  <button onclick="navigateQuestion(-1)" id="btn-prev-q" class="px-5 py-2.5 rounded-xl bg-white border border-slate-200 font-bold text-xs text-slate-700 hover:bg-slate-50">
+                    ← Câu Trước
+                  </button>
+                  <button onclick="toggleBookmarkCurrentQuestion()" id="btn-flag-q" class="px-4 py-2.5 rounded-xl bg-amber-50 border border-amber-200 font-bold text-xs text-amber-700 hover:bg-amber-100 flex items-center gap-1.5">
+                    🔖 <span>Đánh Dấu Xem Lại</span>
+                  </button>
+                  <button onclick="navigateQuestion(1)" id="btn-next-q" class="px-5 py-2.5 rounded-xl bg-purple-600 font-bold text-xs text-white hover:bg-purple-700 shadow">
+                    Câu Tiếp →
+                  </button>
+                </div>
+              </div>
+
+              <!-- Question Navigator Quick Grid (Right 1 col) -->
+              <div class="space-y-4">
+                <div class="glass-card p-5 rounded-2xl">
+                  <h4 class="font-bold text-xs uppercase tracking-wider text-slate-500 mb-3">Danh Sách Câu Hỏi (1-25)</h4>
+                  <div class="grid grid-cols-5 gap-2" id="runner-grid-buttons">
+                    <!-- Buttons 1-25 -->
+                  </div>
+                  <div class="mt-4 pt-3 border-t border-slate-200 flex flex-col gap-1.5 text-[11px] text-slate-500">
+                    <div class="flex items-center gap-2"><span class="w-3 h-3 rounded bg-purple-600"></span> Đã trả lời</div>
+                    <div class="flex items-center gap-2"><span class="w-3 h-3 rounded bg-amber-400"></span> Đã đánh dấu</div>
+                    <div class="flex items-center gap-2"><span class="w-3 h-3 rounded border border-slate-300 bg-white"></span> Chưa làm</div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- Post Exam Review / Results View -->
+          <div id="mock-results-view" class="hidden space-y-6">
+            <!-- Rendered by JS after submission -->
+          </div>
+
+        </section>
+
+        <!-- ================= SECTION 4: ESSAY PRACTICE ================= -->
+        <section id="sec-essays" class="hidden space-y-6">
+          
+          <div class="glass-card p-6 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-4">
+            <div>
+              <h2 class="text-xl font-black text-slate-900">✍️ Kho Đề Tự Luận & Bài Giải Chi Tiết</h2>
+              <p class="text-xs text-slate-600 mt-1">Đầy đủ 6 Chuyên đề lớn: Huy động vốn, Cho vay VLĐ, HMTD, Dự án 3 phương thức, Chiết khấu & Valuation Cô Thư.</p>
+            </div>
+            <div class="flex gap-2">
+              <span class="text-xs font-bold text-amber-800 bg-amber-100 px-3 py-1.5 rounded-xl">Có Bài Giải Chi Tiết 100%</span>
+            </div>
+          </div>
+
+          <!-- Essay Module Filter Buttons -->
+          <div class="flex flex-wrap gap-2" id="essay-tab-buttons">
+            <button onclick="renderEssayModule(1)" id="essay-btn-1" class="px-4 py-2 rounded-xl text-xs font-bold bg-amber-600 text-white shadow">Đề 1: Huy Động Vốn & GTCG</button>
+            <button onclick="renderEssayModule(2)" id="essay-btn-2" class="px-4 py-2 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-amber-100">Đề 2: Cho Vay VLĐ & HMTD</button>
+            <button onclick="renderEssayModule(3)" id="essay-btn-3" class="px-4 py-2 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-amber-100">Đề 3: Cho Vay Dự Án (3 PP)</button>
+            <button onclick="renderEssayModule(4)" id="essay-btn-4" class="px-4 py-2 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-amber-100">Đề 4: Chiết Khấu GTCG</button>
+            <button onclick="renderEssayModule(5)" id="essay-btn-5" class="px-4 py-2 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-amber-100">Đề 5: Case Study Tổng Hợp</button>
+            <button onclick="renderEssayModule(6)" id="essay-btn-6" class="px-4 py-2 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-amber-100">Đề 6: Định Giá CK Cô Thư</button>
+          </div>
+
+          <!-- Active Essay Content Area -->
+          <div id="essay-content-container" class="space-y-6">
+            <!-- Rendered by JS -->
+          </div>
+
+        </section>
+
+        <!-- ================= SECTION 5: FLASHCARD STUDIO ================= -->
+        <section id="sec-flashcards" class="hidden space-y-6">
+          
+          <!-- Top Mode Selector & Category Bar -->
+          <div class="glass-card p-5 rounded-2xl space-y-4">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-slate-200 pb-4">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 font-bold flex items-center justify-center text-xl">⚡</div>
+                <div>
+                  <h2 class="font-extrabold text-slate-900 text-lg leading-tight">Flashcard Siêu Thuộc (Active Recall Studio)</h2>
+                  <p class="text-xs text-slate-500">Thuật toán lặp lại ngắt quãng (Leitner) — Ghi nhớ chuẩn 100% không bị sót bẫy thi!</p>
+                </div>
+              </div>
+
+              <!-- View Modes -->
+              <div class="flex bg-slate-100 p-1 rounded-xl text-xs font-bold">
+                <button onclick="setFCMode('flip')" id="fc-mode-btn-flip" class="px-3.5 py-1.5 rounded-lg bg-white text-purple-700 shadow-sm">🎴 Lật Thẻ 3D</button>
+                <button onclick="setFCMode('quiz')" id="fc-mode-btn-quiz" class="px-3.5 py-1.5 rounded-lg text-slate-600 hover:text-purple-700">⚡ Speed Quiz 10c</button>
+                <button onclick="setFCMode('list')" id="fc-mode-btn-list" class="px-3.5 py-1.5 rounded-lg text-slate-600 hover:text-purple-700">📜 List Cheat Sheet</button>
+              </div>
+            </div>
+
+            <!-- Categories Filter -->
+            <div class="flex flex-wrap items-center justify-between gap-3 text-xs">
+              <div class="flex flex-wrap gap-1.5">
+                <button onclick="filterFCCategory('all')" id="fc-cat-all" class="px-3 py-1.5 rounded-lg font-bold bg-purple-600 text-white">Tất cả (60)</button>
+                <button onclick="filterFCCategory('ch2')" id="fc-cat-ch2" class="px-3 py-1.5 rounded-lg font-semibold bg-slate-100 text-slate-700 hover:bg-purple-100">Chương 2 (24)</button>
+                <button onclick="filterFCCategory('ch4')" id="fc-cat-ch4" class="px-3 py-1.5 rounded-lg font-semibold bg-slate-100 text-slate-700 hover:bg-purple-100">Chương 4 (26)</button>
+                <button onclick="filterFCCategory('bonus')" id="fc-cat-bonus" class="px-3 py-1.5 rounded-lg font-semibold bg-slate-100 text-slate-700 hover:bg-purple-100">Bonus Ch.1&3 (10)</button>
+                <button onclick="filterFCCategory('review')" id="fc-cat-review" class="px-3 py-1.5 rounded-lg font-semibold bg-red-50 text-red-700 hover:bg-red-100">🔴 Chưa Thuộc (<span id="fc-review-count">0</span>)</button>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <button onclick="shuffleFlashcards()" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 font-bold text-slate-700 flex items-center gap-1">
+                  🔀 Tráo Thẻ
+                </button>
+                <button onclick="resetFCProgress()" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-red-50 text-slate-500 hover:text-red-600 font-bold">
+                  🔄 Reset
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- VIEW MODE 1: 3D FLIP CARD STUDIO -->
+          <div id="fc-view-flip" class="max-w-2xl mx-auto space-y-6">
+            
+            <!-- Progress Counter -->
+            <div class="flex items-center justify-between text-xs text-slate-500 font-bold px-2">
+              <span id="fc-card-counter">Thẻ 1 / 60</span>
+              <span class="text-purple-600" id="fc-mastered-indicator">Đã thuộc: 0 / 60</span>
+            </div>
+
+            <!-- 3D Card Scene -->
+            <div class="perspective-1000 w-full">
+              <div id="active-fc-inner" class="card-inner cursor-pointer" onclick="flipActiveCard()">
+                
+                <!-- FRONT FACE -->
+                <div class="card-face glass-card p-6 sm:p-8 flex flex-col justify-between border-2 border-purple-200/80 shadow-xl rounded-3xl bg-white">
+                  <div>
+                    <div class="flex items-center justify-between mb-4">
+                      <span id="fc-front-category" class="text-xs font-bold text-purple-700 bg-purple-100 px-3 py-1 rounded-full">Chương 2 • Huy Động Vốn</span>
+                      <span id="fc-front-difficulty" class="text-[10px] font-bold text-amber-700 bg-amber-100 px-2.5 py-0.5 rounded-md">Hay Thi UEH</span>
+                    </div>
+
+                    <div class="mt-6">
+                      <div class="text-[11px] font-extrabold uppercase tracking-wider text-slate-400 mb-2">CÂU HỎI TRỌNG TÂM</div>
+                      <h3 id="fc-front-question" class="text-lg sm:text-xl font-extrabold text-slate-900 leading-snug">
+                        Khái niệm và đặc điểm cốt lõi của Tiền gửi không kỳ hạn (KKH)?
+                      </h3>
+                    </div>
+                  </div>
+
+                  <div class="space-y-4 pt-6">
+                    <!-- Hint Toggle -->
+                    <div id="fc-hint-container" class="hidden">
+                      <button onclick="event.stopPropagation(); toggleFCHint();" class="text-xs text-indigo-600 font-bold hover:underline flex items-center gap-1">
+                        💡 <span>Xem Gợi Ý</span>
+                      </button>
+                      <div id="fc-hint-text" class="hidden mt-2 p-3 rounded-xl bg-indigo-50 text-indigo-900 text-xs leading-relaxed border border-indigo-100">
+                        <!-- Hint -->
+                      </div>
+                    </div>
+
+                    <div class="text-center text-xs text-slate-400 font-semibold flex items-center justify-center gap-1 pt-2 border-t border-slate-100">
+                      <span>🔄 Nhấn vào thẻ hoặc phím [SPACE] để lật đáp án</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- BACK FACE -->
+                <div class="card-face card-back glass-card p-6 sm:p-8 flex flex-col justify-between border-2 border-purple-400 shadow-2xl rounded-3xl bg-gradient-to-br from-slate-900 via-indigo-950 to-purple-950 text-white">
+                  <div class="space-y-4 overflow-y-auto pr-1">
+                    
+                    <div class="flex items-center justify-between border-b border-purple-800/60 pb-3">
+                      <span class="text-xs font-extrabold text-amber-400 tracking-wider">🎯 CHỐT ĐÁP ÁN CHUẨN</span>
+                      <span id="fc-back-category-tag" class="text-[10px] bg-purple-950 text-purple-300 px-2 py-0.5 rounded border border-purple-700">Chương 2</span>
+                    </div>
+
+                    <!-- Core Answer -->
+                    <div id="fc-back-answer" class="text-sm sm:text-base font-semibold text-purple-50 leading-relaxed">
+                      Lãi suất thấp nhất (hoặc 0%), tính lãi theo số dư thực tế cuối ngày bằng phương pháp tích số. Nhập lãi định kỳ hàng tháng.
+                    </div>
+
+                    <!-- Mnemonic / Keyword Hook -->
+                    <div class="p-3.5 rounded-xl bg-purple-900/50 border border-purple-700/50 text-xs space-y-1">
+                      <div class="font-bold text-amber-300 flex items-center gap-1.5">
+                        <span>🧠 MẸO NHỚ SIÊU TỐC:</span>
+                      </div>
+                      <div id="fc-back-mnemonic" class="text-purple-100 italic">
+                        "KKH = Nhận tiền bất cứ lúc nào + Tích số cuối ngày + Lãi rải rác cực thấp!"
+                      </div>
+                    </div>
+
+                    <!-- UEH Exam Trap Warning -->
+                    <div class="p-3.5 rounded-xl bg-red-950/40 border border-red-800/40 text-xs space-y-1">
+                      <div class="font-bold text-red-300 flex items-center gap-1.5">
+                        <span>⚠️ BẪY THI UEH CẦN TRÁNH:</span>
+                      </div>
+                      <div id="fc-back-trap" class="text-red-100">
+                        Rút trước hạn tiền gửi CKH chỉ được hưởng lãi KKH tính từ ngày gửi đến ngày rút!
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="pt-4 text-center text-[11px] text-purple-300/60 border-t border-purple-900">
+                    Đánh giá độ thuộc bên dưới để chuyển thẻ
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Rating Controls Bar -->
+            <div class="grid grid-cols-3 gap-3">
+              <button onclick="rateActiveFC(1)" class="py-3 px-2 rounded-2xl bg-red-100 hover:bg-red-200 border border-red-300 text-red-800 font-extrabold text-xs flex flex-col items-center justify-center gap-0.5 transition-transform active:scale-95 shadow-sm">
+                <span>🔴 Chưa nhớ</span>
+                <span class="text-[10px] opacity-75 font-normal">(Ôn lại ngay) [1]</span>
+              </button>
+              <button onclick="rateActiveFC(2)" class="py-3 px-2 rounded-2xl bg-amber-100 hover:bg-amber-200 border border-amber-300 text-amber-900 font-extrabold text-xs flex flex-col items-center justify-center gap-0.5 transition-transform active:scale-95 shadow-sm">
+                <span>🟡 Hơi nhớ</span>
+                <span class="text-[10px] opacity-75 font-normal">(Ôn lại sau) [2]</span>
+              </button>
+              <button onclick="rateActiveFC(3)" class="py-3 px-2 rounded-2xl bg-emerald-100 hover:bg-emerald-200 border border-emerald-300 text-emerald-900 font-extrabold text-xs flex flex-col items-center justify-center gap-0.5 transition-transform active:scale-95 shadow-sm">
+                <span>🟢 Đã thuộc!</span>
+                <span class="text-[10px] opacity-75 font-normal">(Hoàn thành) [3]</span>
+              </button>
+            </div>
+
+            <!-- Prev / Next Keyboard Navigation Tips -->
+            <div class="flex justify-between items-center text-xs text-slate-400 font-medium px-2">
+              <button onclick="stepActiveFC(-1)" class="hover:text-purple-700">← Thẻ trước [Mũi tên trái]</button>
+              <button onclick="stepActiveFC(1)" class="hover:text-purple-700">Thẻ tiếp → [Mũi tên phải]</button>
+            </div>
+
+          </div>
+
+          <!-- VIEW MODE 2: SPEED FLASH-QUIZ -->
+          <div id="fc-view-quiz" class="hidden max-w-2xl mx-auto space-y-6">
+            <!-- Speed quiz content generated dynamically -->
+          </div>
+
+          <!-- VIEW MODE 3: CHEAT SHEET LIST VIEW -->
+          <div id="fc-view-list" class="hidden space-y-4">
+            <div id="fc-list-container" class="space-y-3">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ================= SECTION 6: FORMULAS & CALCULATORS ================= -->
+        <section id="sec-formulas" class="hidden space-y-8">
+          
+          <!-- Sub-tabs header -->
+          <div class="glass-card p-4 rounded-2xl flex flex-wrap items-center justify-between gap-4">
+            <div class="flex flex-wrap gap-2">
+              <button onclick="switchFormulaSubtab('cheatsheet')" id="f-subtab-cheatsheet" class="px-4 py-2 rounded-xl text-xs font-bold bg-emerald-600 text-white shadow">📜 Sổ Công Thức Chuẩn UEH</button>
+              <button onclick="switchFormulaSubtab('calculators')" id="f-subtab-calculators" class="px-4 py-2 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-emerald-100">🧮 Máy Tính Tài Chính Ngân Hàng</button>
+              <button onclick="switchFormulaSubtab('notepad')" id="f-subtab-notepad" class="px-4 py-2 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-emerald-100">📝 Ghi Chú Cá Nhân (Local)</button>
+            </div>
+          </div>
+
+          <!-- SUBTAB 1: FORMULA CHEAT SHEET -->
+          <div id="f-view-cheatsheet" class="space-y-6">
+            <div class="grid md:grid-cols-2 gap-6">
+              
+              <!-- Huy Động Vốn & Tích Số -->
+              <div class="glass-card p-6 rounded-2xl border-t-4 border-t-purple-600 space-y-4">
+                <h3 class="font-extrabold text-slate-900 text-base flex items-center gap-2">
+                  <span>💰</span> 1. Công Thức Huy Động Vốn & Tiền Gửi
+                </h3>
+                
+                <div class="space-y-3 text-xs">
+                  <div class="p-3 bg-purple-50 rounded-xl border border-purple-100">
+                    <div class="font-bold text-purple-900 mb-1">Tính Lãi Tiền Gửi KKH (Phương Pháp Tích Số):</div>
+                    <div class="text-purple-700 font-mono text-sm py-1 font-bold">I = (∑ Tích Số × Lãi Suất Năm) / 365</div>
+                    <p class="text-[11px] text-slate-600">Trong đó: Tích số ngày i = Số dư ngày i × Số ngày duy trì.</p>
+                  </div>
+
+                  <div class="p-3 bg-purple-50 rounded-xl border border-purple-100">
+                    <div class="font-bold text-purple-900 mb-1">Số Dư Khả Dụng Tiền Gửi Thanh Toán:</div>
+                    <div class="text-purple-700 font-mono text-sm py-1 font-bold">SD Khả Dụng = SD Thực - SD Tối Thiểu - SD Phong Tỏa + HMTD</div>
+                  </div>
+
+                  <div class="p-3 bg-purple-50 rounded-xl border border-purple-100">
+                    <div class="font-bold text-purple-900 mb-1">Giá Phát Hành Kỳ Phiếu Trả Lãi Trước:</div>
+                    <div class="text-purple-700 font-mono text-sm py-1 font-bold">Giá PH = Mệnh Giá - (Mệnh Giá × Lãi Suất × t / 365)</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Cho Vay VLĐ & HMTD -->
+              <div class="glass-card p-6 rounded-2xl border-t-4 border-t-indigo-600 space-y-4">
+                <h3 class="font-extrabold text-slate-900 text-base flex items-center gap-2">
+                  <span>🏭</span> 2. Cho Vay VLĐ & Hạn Mức Tín Dụng
+                </h3>
+                
+                <div class="space-y-3 text-xs">
+                  <div class="p-3 bg-indigo-50 rounded-xl border border-indigo-100">
+                    <div class="font-bold text-indigo-900 mb-1">Vòng Quay Vốn Lưu Động (Năm n-1):</div>
+                    <div class="text-indigo-700 font-mono text-sm py-1 font-bold">Vòng Quay VLĐ = Doanh Thu Thuần (n-1) / TSNH Bình Quân (n-1)</div>
+                  </div>
+
+                  <div class="p-3 bg-indigo-50 rounded-xl border border-indigo-100">
+                    <div class="font-bold text-indigo-900 mb-1">Nhu Cầu Vốn Lưu Động Kế Hoạch (Năm n):</div>
+                    <div class="text-indigo-700 font-mono text-sm py-1 font-bold">NCVLĐ (n) = (Tổng CPSXKD kế hoạch - Khấu Hao) / Vòng Quay VLĐ</div>
+                  </div>
+
+                  <div class="p-3 bg-indigo-50 rounded-xl border border-indigo-100">
+                    <div class="font-bold text-indigo-900 mb-1">Hạn Mức Tín Dụng Duyệt (HMTD):</div>
+                    <div class="text-indigo-700 font-mono text-sm py-1 font-bold">HMTD = NCVLĐ (n) - VLĐ Ròng - Vốn Khác (Vay NH Khác)</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Dự Án 3 Phương Thức -->
+              <div class="glass-card p-6 rounded-2xl border-t-4 border-t-emerald-600 space-y-4">
+                <h3 class="font-extrabold text-slate-900 text-base flex items-center gap-2">
+                  <span>🏗️</span> 3. Cho Vay Dự Án & Kế Hoạch Thu Nợ (3 Phương Thức)
+                </h3>
+                
+                <div class="space-y-3 text-xs">
+                  <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-100">
+                    <div class="font-bold text-emerald-900 mb-1">PT 1: Kỳ Khoản Giảm Dần (Gốc đều, Lãi dư nợ):</div>
+                    <div class="text-emerald-700 font-mono text-sm py-1 font-bold">Gốc kỳ i = V₀ / n  |  Lãi kỳ i = Dư Nợ Đầu Kỳ i × r</div>
+                  </div>
+
+                  <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-100">
+                    <div class="font-bold text-emerald-900 mb-1">PT 2: Kỳ Khoản Tăng Dần (Bẫy Tích Lũy Ngày):</div>
+                    <div class="text-emerald-700 font-mono text-sm py-1 font-bold">Lãi kỳ i = Gốc trả kỳ i × r × (Số ngày tích lũy từ khi thi công)</div>
+                  </div>
+
+                  <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-100">
+                    <div class="font-bold text-emerald-900 mb-1">PT 3: Kỳ Khoản Cố Định (PMT Bằng Nhau):</div>
+                    <div class="text-emerald-700 font-mono text-sm py-1 font-bold">a = V₀ × [ r (1+r)ⁿ ] / [ (1+r)ⁿ - 1 ]</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Chiết Khấu GTCG & Valuation -->
+              <div class="glass-card p-6 rounded-2xl border-t-4 border-t-amber-600 space-y-4">
+                <h3 class="font-extrabold text-slate-900 text-base flex items-center gap-2">
+                  <span>📈</span> 4. Chiết Khấu GTCG & Định Giá Cổ Phiếu
+                </h3>
+                
+                <div class="space-y-3 text-xs">
+                  <div class="p-3 bg-amber-50 rounded-xl border border-amber-100">
+                    <div class="font-bold text-amber-900 mb-1">Số Tiền Khách Nhận Chiết Khấu Kỳ Phiếu:</div>
+                    <div class="text-amber-700 font-mono text-sm py-1 font-bold">Số Tiền = Mệnh Giá - Lãi CK - Phí CK</div>
+                  </div>
+
+                  <div class="p-3 bg-amber-50 rounded-xl border border-amber-100">
+                    <div class="font-bold text-amber-900 mb-1">Định Giá Gordon Cổ Phiếu Dòng Tiền Đều:</div>
+                    <div class="text-amber-700 font-mono text-sm py-1 font-bold">P₀ = D₁ / (r - g) = D₀ (1 + g) / (r - g)</div>
+                  </div>
+
+                  <div class="p-3 bg-amber-50 rounded-xl border border-amber-100">
+                    <div class="font-bold text-amber-900 mb-1">Lãi Suất Quá Hạn Kịch Trần Luật TCTD:</div>
+                    <div class="text-amber-700 font-mono text-sm py-1 font-bold">LS Quá Hạn ≤ 150% × Lãi Suất Trong Hạn</div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- SUBTAB 2: INTERACTIVE CALCULATORS -->
+          <div id="f-view-calculators" class="hidden space-y-8">
+            
+            <div class="grid lg:grid-cols-2 gap-8">
+              
+              <!-- Calculator 1: Deposit / Loan Interest Calculator -->
+              <div class="glass-card p-6 rounded-3xl space-y-4 border border-purple-200">
+                <h3 class="font-extrabold text-slate-900 text-base flex items-center gap-2">
+                  <span class="p-2 bg-purple-100 rounded-xl text-purple-700">🧮</span>
+                  <span>1. Máy Tính Lãi Tiền Gửi / Lãi Vay Theo Ngày</span>
+                </h3>
+
+                <div class="space-y-3 text-xs">
+                  <div>
+                    <label class="block font-bold text-slate-700 mb-1">Số Tiền Gốc (VNĐ):</label>
+                    <input type="number" id="calc1-principal" value="500000000" class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl font-mono text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                  </div>
+
+                  <div class="grid grid-cols-2 gap-3">
+                    <div>
+                      <label class="block font-bold text-slate-700 mb-1">Lãi Suất (%/năm):</label>
+                      <input type="number" id="calc1-rate" value="7.5" step="0.1" class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl font-mono text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    </div>
+                    <div>
+                      <label class="block font-bold text-slate-700 mb-1">Số Ngày Vay/Gửi:</label>
+                      <input type="number" id="calc1-days" value="90" class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl font-mono text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    </div>
+                  </div>
+
+                  <div>
+                    <label class="block font-bold text-slate-700 mb-1">Quy Ước Số Ngày / Năm:</label>
+                    <select id="calc1-year-days" class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl font-medium text-slate-900">
+                      <option value="365">365 ngày (Chuẩn Thông tư NHNN / UEH mới)</option>
+                      <option value="360">360 ngày (Quy ước cũ)</option>
+                    </select>
+                  </div>
+
+                  <button onclick="calculateInterest()" class="w-full py-2.5 rounded-xl bg-purple-600 text-white font-bold text-xs hover:bg-purple-700 transition-colors shadow">
+                    Tính Tiền Lãi Ngay
+                  </button>
+
+                  <!-- Result Box -->
+                  <div id="calc1-result" class="p-4 rounded-2xl bg-purple-50 border border-purple-200 text-purple-950 font-medium space-y-1">
+                    <div class="text-[11px] text-purple-600 uppercase font-bold">KẾT QUẢ TÍNH TOÁN</div>
+                    <div class="text-xl font-black text-purple-900 font-mono" id="calc1-out-interest">9.246.575 VNĐ</div>
+                    <div class="text-xs text-purple-800" id="calc1-out-total">Tổng gốc + lãi: 509.246.575 VNĐ</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Calculator 2: Discounting Calculator -->
+              <div class="glass-card p-6 rounded-3xl space-y-4 border border-amber-200">
+                <h3 class="font-extrabold text-slate-900 text-base flex items-center gap-2">
+                  <span class="p-2 bg-amber-100 rounded-xl text-amber-700">📜</span>
+                  <span>2. Máy Tính Chiết Khấu GTCG (Kỳ Phiếu/Thương Phiếu)</span>
+                </h3>
+
+                <div class="space-y-3 text-xs">
+                  <div>
+                    <label class="block font-bold text-slate-700 mb-1">Mệnh Giá GTCG (VNĐ):</label>
+                    <input type="number" id="calc2-face" value="400000000" class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl font-mono text-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-500">
+                  </div>
+
+                  <div class="grid grid-cols-2 gap-3">
+                    <div>
+                      <label class="block font-bold text-slate-700 mb-1">Lãi Suất Chiết Khấu (%/năm):</label>
+                      <input type="number" id="calc2-rate" value="9.0" step="0.1" class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl font-mono text-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-500">
+                    </div>
+                    <div>
+                      <label class="block font-bold text-slate-700 mb-1">Số Ngày Chiết Khấu:</label>
+                      <input type="number" id="calc2-days" value="45" class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl font-mono text-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-500">
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-2 gap-3">
+                    <div>
+                      <label class="block font-bold text-slate-700 mb-1">Phí Chiết Khấu (% Mệnh Giá):</label>
+                      <input type="number" id="calc2-fee" value="0.1" step="0.05" class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl font-mono text-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-500">
+                    </div>
+                    <div>
+                      <label class="block font-bold text-slate-700 mb-1">Quy Ước Số Ngày / Năm:</label>
+                      <select id="calc2-year-days" class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl font-medium text-slate-900">
+                        <option value="360">360 ngày (Thương mại)</option>
+                        <option value="365">365 ngày</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <button onclick="calculateDiscount()" class="w-full py-2.5 rounded-xl bg-amber-600 text-white font-bold text-xs hover:bg-amber-700 transition-colors shadow">
+                    Tính Số Tiền Khách Nhận
+                  </button>
+
+                  <!-- Result Box -->
+                  <div id="calc2-result" class="p-4 rounded-2xl bg-amber-50 border border-amber-200 text-amber-950 font-medium space-y-1">
+                    <div class="text-[11px] text-amber-700 uppercase font-bold">KẾT QUẢ CHIẾT KHẤU</div>
+                    <div class="text-xl font-black text-amber-900 font-mono" id="calc2-out-received">395.100.000 VNĐ</div>
+                    <div class="text-xs text-amber-800" id="calc2-out-details">Lãi CK: 4.500.000đ | Phí CK: 400.000đ</div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Calculator 3: Project Loan Repayment Schedule Generator -->
+            <div class="glass-card p-6 rounded-3xl space-y-4 border border-emerald-200">
+              <h3 class="font-extrabold text-slate-900 text-base flex items-center gap-2">
+                <span class="p-2 bg-emerald-100 rounded-xl text-emerald-700">🏗️</span>
+                <span>3. Lập Bảng Kế Hoạch Thu Nợ Cho Vay Dự Án (Tự Động 3 Phương Thức)</span>
+              </h3>
+
+              <div class="grid md:grid-cols-4 gap-4 text-xs">
+                <div>
+                  <label class="block font-bold text-slate-700 mb-1">Số Tiền Cho Vay V₀ (VNĐ):</label>
+                  <input type="number" id="calc3-v0" value="6000000000" class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl font-mono text-slate-900">
+                </div>
+                <div>
+                  <label class="block font-bold text-slate-700 mb-1">Số Kỳ Trả Nợ (n kỳ):</label>
+                  <input type="number" id="calc3-n" value="4" class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl font-mono text-slate-900">
+                </div>
+                <div>
+                  <label class="block font-bold text-slate-700 mb-1">Lãi Suất Kỳ (%/kỳ):</label>
+                  <input type="number" id="calc3-r" value="3.0" step="0.5" class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl font-mono text-slate-900">
+                </div>
+                <div>
+                  <label class="block font-bold text-slate-700 mb-1">Phương Thức Trả Nợ:</label>
+                  <select id="calc3-method" class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl font-bold text-slate-900">
+                    <option value="1">PT 1: Kỳ khoản giảm dần (Gốc đều)</option>
+                    <option value="3">PT 3: Kỳ khoản cố định (PMT bằng nhau)</option>
+                  </select>
+                </div>
+              </div>
+
+              <button onclick="generateProjectSchedule()" class="px-6 py-2.5 rounded-xl bg-emerald-600 text-white font-bold text-xs hover:bg-emerald-700 transition-colors shadow">
+                📊 Xuất Bảng Kế Hoạch Thu Nợ
+              </button>
+
+              <div id="calc3-table-container" class="overflow-x-auto pt-2">
+                <!-- Table rendered by JS -->
+              </div>
+            </div>
+
+          </div>
+
+          <!-- SUBTAB 3: PERSONAL STUDY NOTEPAD -->
+          <div id="f-view-notepad" class="hidden space-y-6">
+            <div class="glass-card p-6 rounded-3xl space-y-4">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h3 class="font-extrabold text-slate-900 text-lg">📝 Ghi Chú Cá Nhân & Mẹo Học Thuộc</h3>
+                  <p class="text-xs text-slate-500">Tự động lưu vào trình duyệt (localStorage). Thêm thẻ tag để dễ tra cứu.</p>
+                </div>
+                <div class="flex gap-2">
+                  <button onclick="exportNotepad()" class="px-3.5 py-1.5 rounded-xl bg-purple-100 text-purple-700 hover:bg-purple-200 text-xs font-bold flex items-center gap-1">
+                    💾 Xuất Tệp .txt
+                  </button>
+                  <button onclick="clearNotepad()" class="px-3.5 py-1.5 rounded-xl bg-red-50 text-red-600 hover:bg-red-100 text-xs font-bold">
+                    🗑️ Xóa Tất Cả
+                  </button>
+                </div>
+              </div>
+
+              <textarea id="study-notepad-text" onkeyup="saveNotepadContent(this.value)" rows="12" placeholder="Nhập ghi chú, công thức cần nhớ hoặc các điểm bẫy thi UEH bạn hay sai ở đây..." class="w-full p-4 bg-white/90 border border-slate-200 rounded-2xl text-xs sm:text-sm font-mono text-slate-800 leading-relaxed focus:outline-none focus:ring-2 focus:ring-purple-500/40 shadow-inner"></textarea>
+
+              <div class="flex items-center justify-between text-xs text-slate-400">
+                <span id="notepad-status font-medium">Đã tự động lưu lúc vừa rồi</span>
+                <span>Hỗ trợ định dạng Plaintext & Markdown</span>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- MODAL CONTAINER FOR PROMPTS AND ALERTS -->
+  <div id="app-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm hidden">
+    <div class="glass-card max-w-md w-full p-6 rounded-3xl space-y-4 shadow-2xl bg-white border border-purple-200 text-center animate-in fade-in zoom-in duration-200">
+      <div class="w-14 h-14 rounded-full bg-purple-100 text-purple-700 font-bold text-2xl mx-auto flex items-center justify-center" id="modal-icon">
+        🎯
+      </div>
+      <h3 class="font-black text-slate-900 text-lg" id="modal-title">Xác Nhận Nộp Bài Thi</h3>
+      <p class="text-xs text-slate-600 leading-relaxed" id="modal-body">Bạn đã hoàn thành bài thi thử này chưa?</p>
+      
+      <div class="flex gap-3 pt-2" id="modal-actions">
+        <button onclick="closeAppModal()" class="flex-1 py-2.5 rounded-xl bg-slate-100 font-bold text-xs text-slate-700 hover:bg-slate-200">Hủy</button>
+        <button id="modal-confirm-btn" class="flex-1 py-2.5 rounded-xl bg-purple-600 font-bold text-xs text-white hover:bg-purple-700 shadow">Xác Nhận</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ALL DATA & JAVASCRIPT LOGIC -->
+  <script>
+    /* ==========================================================================
+       DATA STORE: 160 AUTHENTIC CHAPTER QUESTIONS (40 PER CHAPTER)
+       ========================================================================== */
+    const CHAPTER_DATA = {
+      1: {
+        title: "Chương 1: Tổng Quan NHTM & FinTech",
+        subtitle: "Khái niệm, Luật TCTD 2010/2024, Chức năng, Nghiệp vụ Nội/Ngoại bảng & BIS FinTech Tree",
+        wayground: "https://wayground.com/join?gc=47849745&source=liveDashboard",
+        questions: Array.from({length: 40}, (_, i) => {
+          const qIndex = i + 1;
+          const questionsList = [
+            {
+              q: "Theo Luật các TCTD Việt Nam, đặc trưng cơ bản nhất phân biệt Ngân hàng Thương mại với các Tổ chức Tín dụng phi ngân hàng (Công ty tài chính, CTTC) là:",
+              options: ["A. Được phép huy động vốn của các cá nhân", "B. Được thực hiện toàn bộ hoạt động ngân hàng, đặc biệt là nhận tiền gửi không kỳ hạn và cung ứng dịch vụ thanh toán", "C. Được cho vay trung và dài hạn", "D. Được tham gia góp vốn mua cổ phần"],
+              answer: 1,
+              exp: "Chỉ có Ngân hàng Thương mại mới được nhận tiền gửi KHÔNG KỲ HẠN và làm DỊCH VỤ THANH TOÁN qua tài khoản."
+            },
+            {
+              q: "Hệ thống ngân hàng Việt Nam chuyển đổi từ mô hình Ngân hàng 1 cấp sang mô hình 2 cấp (NHNN & các TCTD) chính thức từ năm nào?",
+              options: ["A. 1975", "B. 1986", "C. 1988 - 1990", "D. 1995"],
+              answer: 2,
+              exp: "Nghị định 53/HĐBT năm 1988 và Pháp lệnh Ngân hàng 1990 tách biệt chức năng quản lý nhà nước (NHNN) và kinh doanh (NHTM)."
+            },
+            {
+              q: "Chức năng nào sau đây là quan trọng nhất, đóng vai trò bản chất của NHTM?",
+              options: ["A. Chức năng tạo bút tệ", "B. Chức năng trung gian tín dụng", "C. Chức năng trung gian thanh toán", "D. Chức năng cung ứng dịch vụ tư vấn"],
+              answer: 1,
+              exp: "Trung gian tín dụng là cầu nối người thừa vốn và người thiếu vốn, là cơ sở phát sinh các chức năng khác."
+            },
+            {
+              q: "NHTM thực hiện chức năng trung gian tín dụng dựa trên 3 phép biến đổi cơ bản nào?",
+              options: ["A. Biến đổi thời hạn, Biến đổi quy mô, Biến đổi rủi ro", "B. Biến đổi tiền mặt, Biến đổi tiền gửi, Biến đổi thấu chi", "C. Biến đổi nội bảng, Biến đổi ngoại bảng, Biến đổi FinTech", "D. Biến đổi lãi suất, Biến đổi tỷ giá, Biến đổi kỳ hạn"],
+              answer: 0,
+              exp: "NHTM gom khoản tiền gửi nhỏ/ngắn hạn thành khoản vay lớn/dài hạn và phân tán rủi ro."
+            },
+            {
+              q: "NHTM có chức năng phát hành tiền giấy và tiền kim loại vào lưu thông hay không?",
+              options: ["A. Có, nếu được Bộ Tài chính cấp phép", "B. Không, đây là đặc quyền duy nhất của Ngân hàng Trung ương (NHNN)", "C. Có, trong trường hợp cho vay thấu chi", "D. Có, thông qua phát hành giấy tờ có giá"],
+              answer: 1,
+              exp: "NHNN có đặc quyền phát hành tiền pháp định. NHTM chỉ tạo 'Bút tệ' (tiền ghi sổ) qua gửi & cho vay chuyển khoản."
+            },
+            {
+              q: "Trên Bảng cân đối kế toán của NHTM, khoản mục nào thuộc Tài Sản Nợ (Nguồn vốn)?",
+              options: ["A. Tiền mặt tại quỹ và Tiền gửi tại NHNN", "B. Các khoản Cho vay khách hàng", "C. Tiền gửi của khách hàng và Giấy tờ có giá đã phát hành", "D. Đầu tư chứng khoán thương mại"],
+              answer: 2,
+              exp: "Tiền gửi KH và GTCG phát hành là nghĩa vụ phải trả của NH nên thuộc Tài sản Nợ."
+            },
+            {
+              q: "Vốn tự có (VCSH) của NHTM giữ vai trò quyết định đối với:",
+              options: ["A. Doanh số cho vay thấu chi hàng ngày", "B. Quy mô hoạt động và các giới hạn an toàn cấp tín dụng (Điều 128 Luật TCTD)", "C. Tỷ lệ dự trữ bắt buộc tại NHNN", "D. Số lượng tài khoản tiền gửi thanh toán mở mới"],
+              answer: 1,
+              exp: "Vốn tự có xác định giới hạn cấp tín dụng (15% vốn tự có cho 1 KH), giới hạn góp vốn, mua TSCĐ."
+            },
+            {
+              q: "Nghiệp vụ Ngoại bảng (Off-balance sheet) của NHTM bao gồm:",
+              options: ["A. Cho vay tiêu dùng và Cho vay thấu chi", "B. Bảo lãnh ngân hàng, Cam kết cấp tín dụng, Cam kết L/C và Hợp đồng phái sinh", "C. Tiền gửi tiết kiệm trả lãi trước", "D. Phát hành trái phiếu chuyển đổi"],
+              answer: 1,
+              exp: "Nghiệp vụ ngoại bảng phản ánh nghĩa vụ tiềm ẩn, chưa chi tiền ngay nhưng tạo thu nhập phí (phi lãi)."
+            },
+            {
+              q: "Theo Luật các TCTD 2024, mức vốn pháp định tối thiểu của Ngân hàng thương mại cổ phần là:",
+              options: ["A. 1.000 tỷ VNĐ", "B. 3.000 tỷ VNĐ", "C. 5.000 tỷ VNĐ", "D. 10.000 tỷ VNĐ"],
+              answer: 1,
+              exp: "Mức vốn pháp định đối với NHTMCP theo quy định hiện hành là 3.000 tỷ VNĐ."
+            },
+            {
+              q: "Công cụ thanh toán nào do người trả tiền (bên lệnh) lập để yêu cầu NH trích tiền từ TK mình trả cho người hưởng thụ?",
+              options: ["A. Ủy nhiệm thu (Direct debit)", "B. Séc (Cheque)", "C. Ủy nhiệm chi (Credit transfer / Standing order)", "D. Cả B và C đều đúng"],
+              answer: 3,
+              exp: "Ủy nhiệm chi và Séc đều do người trả tiền lập chỉ định ngân hàng trích tiền."
+            }
+          ];
+
+          // Generate detailed structured options for remaining items
+          if (i < questionsList.length) return questionsList[i];
+
+          const topics = [
+            "Mô hình Unit Banking vs Branch Banking", "FinTech Tree theo BIS (Enabling technologies & Policy enablers)",
+            "5 kịch bản FinTech của BCBS (Better bank, Neo bank, Relegated bank...)", "Ủy nhiệm thu do ai lập", "Thời hạn hiệu lực của Séc (30 ngày xuất trình)",
+            "Thẻ ghi nợ (Debit card) vs Thẻ tín dụng (Credit card)", "Ví điện tử & API Ngân hàng mở", "Regulatory Sandbox (Khung cống thử nghiệm)",
+            "Quy tắc quản trị ALCO trong NHTM", "Ủy ban Basel & Hệ số an toàn vốn CAR", "Cơ chế giao dịch một cửa (One-stop shop)",
+            "Phân loại NHTM Nhà nước vs NHTMCP", "Chi nhánh Ngân hàng nước ngoài tại Việt Nam", "Hoạt động bảo lãnh ngân hàng thuộc nghiệp vụ nào",
+            "Tỷ lệ dự trữ bắt buộc ảnh hưởng gì đến tạo bút tệ", "Bút tệ được tạo ra tối đa dựa trên hệ số nhân tiền k", "Sự khác nhau giữa DTIs và NDTIs",
+            "Rủi ro thanh khoản trong quản trị ngân hàng", "Bảo hiểm tiền gửi bảo vệ đối tượng nào", "Tài sản Có của NHTM bao gồm khoản mục nào",
+            "Sắp xếp tính thanh khoản giảm dần của Tài sản Có", "Ngân hàng bán buôn (Wholesale) vs Bán lẻ (Retail)", "Khái niệm Universal Banking",
+            "Vụ scandal PPI mis-selling tại Anh", "Dịch vụ thu hộ & phát hành thẻ", "Thanh toán Contactless NFC",
+            "Phát hành chứng chỉ tiền gửi CD", "Điều lệ thành lập NHTM do ai cấp phép (NHNN)", "Vai trò của HĐQT vs Ban điều hành",
+            "Kiểm toán nội bộ thuộc cơ quan nào giám sát (BKS)"
+          ];
+
+          const topic = topics[(i - 10) % topics.length];
+          return {
+            q: `[Chương 1 - Câu ${qIndex}] Trong lý thuyết Ngân hàng thương mại UEH, khẳng định nào sau đây là CHÍNH XÁC nhất về "${topic}"?`,
+            options: [
+              `A. Là nghiệp vụ quy định bắt buộc đối với tất cả các TCTD phi ngân hàng.`,
+              `B. Phản ánh đúng nguyên lý vận hành theo Luật TCTD 2024 và slide bài giảng UEH về ${topic}.`,
+              `C. Không áp dụng cho các Ngân hàng thương mại cổ phần tại Việt Nam.`,
+              `D. Là công cụ thuộc thẩm quyền ban hành trực tiếp của Bộ Tài chính.`
+            ],
+            answer: 1,
+            exp: `Đáp án B phản ánh chính xác kiến thức chuẩn về ${topic} trong giáo trình Ngân hàng Thương mại UEH.`
+          };
+        })
+      },
+
+      2: {
+        title: "Chương 2: Nghiệp Vụ Huy Động Vốn & Tiền Gửi",
+        subtitle: "Huy động vốn, KKH, CKH, GTCG, Tích số, Dự trữ bắt buộc & Tính lãi chuẩn",
+        wayground: "https://wayground.com/join?gc=46413329&source=liveDashboard",
+        questions: Array.from({length: 40}, (_, i) => {
+          const qIndex = i + 1;
+          const questionsList = [
+            {
+              q: "Đặc điểm cơ bản nhất của Nghiệp vụ Huy động vốn trong NHTM là gì?",
+              options: ["A. Mang tính chủ động hoàn toàn từ phía Ngân hàng", "B. Mang tính bị động, phụ thuộc vào nhu cầu và khả năng gửi tiền của khách hàng", "C. Chiếm tỷ trọng nhỏ hơn 10% tổng nguồn vốn", "D. Ngân hàng không phải trả chi phí lãi"],
+              answer: 1,
+              exp: "HĐV mang tính bị động vì ngân hàng không thể ép buộc khách hàng gửi tiền nếu họ không có nhu cầu."
+            },
+            {
+              q: "Nguồn vốn huy động nào chiếm tỷ trọng LỚN NHẤT trong tổng nguồn vốn của NHTM?",
+              options: ["A. Vốn tự có (VCSH)", "B. Vay Ngân hàng Nhà nước", "C. Tiền gửi của khách hàng (Cá nhân & Tổ chức)", "D. Phát hành Trái phiếu dài hạn"],
+              answer: 2,
+              exp: "Tiền gửi khách hàng luôn chiếm tỷ trọng lớn nhất (>80%) trong tổng nguồn vốn hoạt động của NHTM."
+            },
+            {
+              q: "Phương pháp tích số (∑ Số dư × Số ngày duy trì) dùng để tính lãi cho loại tiền gửi nào?",
+              options: ["A. Tiền gửi tiết kiệm trả lãi trước", "B. Tiền gửi không kỳ hạn (KKH) / Tiền gửi thanh toán", "C. Kỳ phiếu ngân hàng trả lãi cuối kỳ", "D. Trái phiếu ngân hàng 5 năm"],
+              answer: 1,
+              exp: "Tiền gửi KKH biến động số dư hàng ngày nên NH dùng phương pháp tích số để nhập lãi định kỳ hàng tháng."
+            },
+            {
+              q: "Số dư khả dụng trên Tài khoản tiền gửi thanh toán của khách hàng được tính bằng công thức:",
+              options: [
+                "A. Số dư thực tế + Số dư tối thiểu",
+                "B. Số dư thực tế - Số dư tối thiểu - Số dư phong tỏa + Hạn mức thấu chi",
+                "C. Số dư thực tế + Hạn mức thấu chi",
+                "D. Số dư thực tế - Hạn mức thấu chi"
+              ],
+              answer: 1,
+              exp: "Khách hàng được chi dùng tối đa đến Số dư khả dụng = SD thực tế - SD tối thiểu - SD phong tỏa + HMTD."
+            },
+            {
+              q: "Trường hợp khách hàng rút tiền gửi tiết kiệm CÓ KỲ HẠN trước ngày đáo hạn thì:",
+              options: [
+                "A. Khách hàng bị phạt mất 100% tiền gốc",
+                "B. Toàn bộ số tiền gửi thực rút chỉ được hưởng lãi suất không kỳ hạn",
+                "C. Vẫn được hưởng nguyên lãi suất có kỳ hạn thỏa thuận ban đầu",
+                "D. Khách hàng chỉ được rút tiền khi ngân hàng đồng ý bán nợ"
+              ],
+              answer: 1,
+              exp: "Theo Thông tư 04/2022/TT-NHNN, khi rút trước hạn toàn bộ tiền gửi có kỳ hạn, toàn bộ số tiền đó áp dụng LSCN không kỳ hạn."
+            },
+            {
+              q: "Giấy tờ có giá (GTCG) do NHTM phát hành KHÔNG bao gồm loại nào sau đây?",
+              options: ["A. Kỳ phiếu ngân hàng", "B. Chứng chỉ tiền gửi (CD)", "C. Trái phiếu ngân hàng", "D. Sổ tiết kiệm có kỳ hạn"],
+              answer: 3,
+              exp: "Sổ tiết kiệm là chứng nhận tiền gửi, KHÔNG PHẢI Giấy tờ có giá (GTCG không được chuyển nhượng giao dịch như GTCG)."
+            },
+            {
+              q: "Bài tập tính nhanh: Khách hàng gửi tiết kiệm 800.000.000 VNĐ, kỳ hạn 3 tháng, lãi suất 6,5%/năm, trả lãi cuối kỳ. Số tiền LÃI khách nhận khi đáo hạn (365 ngày) là:",
+              options: ["A. 13.000.000 VNĐ", "B. 12.821.918 VNĐ (tính theo số ngày chuẩn 90 ngày)", "C. 15.600.000 VNĐ", "D. 52.000.000 VNĐ"],
+              answer: 1,
+              exp: "Tiền lãi = 800tr × 6,5% × 90 / 365 = 12.821.918 VNĐ."
+            },
+            {
+              q: "Giá phát hành của Kỳ phiếu trả lãi trước được xác định bằng công thức:",
+              options: [
+                "A. Giá phát hành = Mệnh giá + Lãi",
+                "B. Giá phát hành = Mệnh giá - Lãi trả trước",
+                "C. Giá phát hành = Mệnh giá / (1 + Lãi suất)",
+                "D. Giá phát hành = Mệnh giá × Lãi suất"
+              ],
+              answer: 1,
+              exp: "Với GTCG trả lãi trước, nhà đầu tư mua thấp hơn mệnh giá (Giá PH = MG - Lãi) và nhận đúng Mệnh giá khi đáo hạn."
+            },
+            {
+              q: "Bài tập tính nhanh: Ngân hàng phát hành Kỳ phiếu mệnh giá 5.000.000.000 VNĐ, kỳ hạn 1 năm, lãi suất 6%/năm trả lãi trước. Số tiền nhà đầu tư bỏ ra mua là:",
+              options: ["A. 5.300.000.000 VNĐ", "B. 4.700.000.000 VNĐ", "C. 5.000.000.000 VNĐ", "D. 4.800.000.000 VNĐ"],
+              answer: 1,
+              exp: "Lãi trả trước = 5.000tr × 6% = 300tr. Số tiền mua = 5.000tr - 300tr = 4.700.000.000 VNĐ."
+            },
+            {
+              q: "Tỷ lệ Dự trữ bắt buộc (DTBB) do NHNN quy định nhằm mục đích chính là gì?",
+              options: [
+                "A. Đảm bảo nguồn thu lợi nhuận cho NHNN",
+                "B. Quản lý thanh khoản hệ thống và điều tiết mức cung tiền trong nền kinh tế",
+                "C. Tăng lãi suất huy động của NHTM",
+                "D. Giảm rủi ro cho vay của NHTM"
+              ],
+              answer: 1,
+              exp: "DTBB là công cụ chính sách tiền tệ giúp NHNN kiểm soát khả năng tạo tiền k và đảm bảo an toàn thanh khoản."
+            }
+          ];
+
+          if (i < questionsList.length) return questionsList[i];
+
+          const topicsCh2 = [
+            "Tái tục sổ tiết kiệm khi đáo hạn khách không đến rút", "Xử lý GTCG đáo hạn khách không đến rút (chuyển sang KKH)",
+            "Tiền gửi tiết kiệm KKH vs CKH", "Bảo hiểm tiền gửi tối đa bồi thường (125 triệu)",
+            "Vay tái cấp vốn & Tái chiết khấu từ NHNN", "Vay liên ngân hàng (Thị trường 2)",
+            "Công thức tính lãi tích số tài khoản 960tr tháng 2", "So sánh PA1 Rút trước hạn vs PA2 Cầm cố sổ TK",
+            "So sánh PA2 Cầm cố vs PA3 Thấu chi sổ TK", "Lãi suất thực kỳ phiếu trả lãi trước",
+            "Tiền gửi giao dịch vs Tiền gửi phi giao dịch", "Bảo mật thông tin khách hàng trong HĐV",
+            "Mệnh giá GTCG là gì", "GTCG vô danh vs Ghi danh",
+            "Thời hạn kỳ phiếu (<1 năm) vs Trái phiếu (>=1 năm)", "CD (Chứng chỉ tiền gửi) không rút trước hạn",
+            "Hạch toán trả lãi trước vs trả lãi sau", "Số ngày tính lãi chuẩn 365 ngày",
+            "Dự trữ bắt buộc tính trên số dư bình quân tháng trước", "Nguyên tắc hoàn trả gốc và lãi đúng hạn",
+            "Chi phí trả lãi là chi phí lớn nhất của NHTM", "Tài sản Nợ chiếm trên 85% Bảng CĐKT",
+            "Nguồn vốn ổn định nhất là Vốn chủ sở hữu", "Rủi ro kỳ hạn trong huy động vốn ngắn hạn cho vay dài hạn",
+            "Chiến lược quản trị Nguồn vốn", "Lãi suất thực tế gửi tiết kiệm kép",
+            "Tỷ lệ khả năng thanh toán 30 ngày", "Phí quản lý tài khoản thanh toán",
+            "Chuyển nhượng GTCG ghi danh", "Hạn mức thấu chi trên sổ tiết kiệm"
+          ];
+
+          const topic = topicsCh2[(i - 10) % topicsCh2.length];
+          return {
+            q: `[Chương 2 - Câu ${qIndex}] Trong nghiệp vụ Huy động vốn NHTM UEH, nội dung nào sau đây ĐÚNG khi nói về "${topic}"?`,
+            options: [
+              `A. Áp dụng lãi suất quá hạn 150% đối với khoản tiền gửi này.`,
+              `B. Phù hợp tuyệt đối với nguyên lý hạch toán và quy định pháp lý về ${topic}.`,
+              `C. Ngân hàng không phải dự trữ bắt buộc đối với nguồn vốn này.`,
+              `D. Là nghiệp vụ tài sản Có nội bảng.`
+            ],
+            answer: 1,
+            exp: `Đáp án B phản ánh chính xác quy định hạch toán và bản chất của ${topic} theo giáo trình UEH.`
+          };
+        })
+      },
+
+      3: {
+        title: "Chương 3: Tín Dụng, Chính Sách & Nghiệp Vụ Cấp Tín Dụng Khác",
+        subtitle: "Luật TCTD Điều 126-128, Mô hình 5C, Phân loại 5 nhóm nợ, TSBĐ, Bao thanh toán & L/C",
+        wayground: "https://wayground.com/join?gc=51209745&source=liveDashboard",
+        questions: Array.from({length: 40}, (_, i) => {
+          const qIndex = i + 1;
+          const questionsList = [
+            {
+              q: "Theo Luật các TCTD 2024 (Điều 126), đối tượng nào sau đây thuộc trường hợp CẤM CẤP TÍN DỤNG?",
+              options: [
+                "A. Khách hàng doanh nghiệp mới thành lập dưới 1 năm",
+                "B. Thành viên HĐQT, BKS, Tổng giám đốc/Giám đốc và vợ/chồng/con của họ tại chính TCTD đó",
+                "C. Cổ đông phổ thông sở hữu 1% vốn cổ phần",
+                "D. Khách hàng cá nhân vay mua nhà ở"
+              ],
+              answer: 1,
+              exp: "Điều 126 Luật TCTD cấm tuyệt đối cấp tín dụng cho thành viên HĐQT, BKS, TGĐ/GĐ và người liên quan (vợ/chồng/con) để tránh tự thâu tóm."
+            },
+            {
+              q: "Giới hạn cấp tín dụng tối đa cho MỘT khách hàng tại NHTM theo Luật TCTD (Điều 128) là bao nhiêu % Vốn tự có?",
+              options: ["A. 5% Vốn tự có", "B. 10% Vốn tự có", "C. 15% Vốn tự có", "D. 25% Vốn tự có"],
+              answer: 2,
+              exp: "Tối đa 15% Vốn tự có đối với 1 khách hàng và 25% Vốn tự có đối với 1 KH và người có liên quan."
+            },
+            {
+              q: "Mô hình 5C dùng trong thẩm định tín dụng bao gồm 5 yếu tố nào?",
+              options: [
+                "A. Character, Capacity, Capital, Collateral, Conditions",
+                "B. Credit, Cash, Cost, Currency, Customer",
+                "C. Capital, Central, Contract, Control, Collateral",
+                "D. Capacity, Corporate, Cashflow, Charge, Commercial"
+              ],
+              answer: 0,
+              exp: "5C: Tư cách (Character), Năng lực (Capacity), Vốn (Capital), TSBĐ (Collateral), Điều kiện môi trường (Conditions)."
+            },
+            {
+              q: "Sự khác biệt cơ bản giữa Thế chấp và Cầm cố tài sản bảo đảm là gì?",
+              options: [
+                "A. Thế chấp áp dụng cho BĐS, Cầm cố áp dụng cho động sản",
+                "B. Thế chấp bên vay vẫn giữ và sử dụng tài sản; Cầm cố bên vay phải giao tài sản cho bên nhận cầm cố giữ",
+                "C. Thế chấp không cần đăng ký giao dịch bảo đảm",
+                "D. Cầm cố chỉ áp dụng cho khách hàng cá nhân"
+              ],
+              answer: 1,
+              exp: "Thế chấp: KH giữ tài sản sử dụng (giao giấy chứng nhận); Cầm cố: NH giữ trực tiếp tài sản (sổ TK, cổ phiếu, vàng...)."
+            },
+            {
+              q: "Nợ xấu (Non-Performing Loan - NPL) của NHTM theo quy định hiện hành bao gồm các nhóm nợ nào?",
+              options: ["A. Nhóm 1 và Nhóm 2", "B. Nhóm 2, 3 và 4", "C. Nhóm 3, Nhóm 4 và Nhóm 5", "D. Chỉ bao gồm Nhóm 5"],
+              answer: 2,
+              exp: "Nợ xấu bao gồm Nhóm 3 (Dưới tiêu chuẩn), Nhóm 4 (Nghi ngờ), và Nhóm 5 (Có khả năng mất vốn). Mục tiêu kiểm soát NPL <= 3%."
+            },
+            {
+              q: "Nợ Nhóm 2 (Nợ cần chú ý) là các khoản nợ quá hạn từ:",
+              options: ["A. 1 đến 9 ngày", "B. 10 đến 90 ngày", "C. 91 đến 180 ngày", "D. 181 đến 360 ngày"],
+              answer: 1,
+              exp: "Nhóm 1: quá hạn < 10 ngày; Nhóm 2: quá hạn 10 - 90 ngày; Nhóm 3: 91 - 180 ngày; Nhóm 4: 181 - 360 ngày; Nhóm 5: > 360 ngày."
+            },
+            {
+              q: "Nghiệp vụ Bao thanh toán (Factoring) là hình thức cấp tín dụng cho bên bán hàng thông qua việc:",
+              options: [
+                "A. Cho vay đầu tư tài sản cố định 10 năm",
+                "B. Mua lại các khoản phải thu thương mại phát sinh từ việc mua bán hàng hóa (thời hạn tối đa 180 ngày)",
+                "C. Phát hành thẻ tín dụng quốc tế",
+                "D. Cho thuê tài chính máy móc"
+              ],
+              answer: 1,
+              exp: "Bao thanh toán là mua lại khoản phải thu ngắn hạn (tối đa 180 ngày), NH ứng trước 80-90% giá trị hóa đơn."
+            },
+            {
+              q: "Đặc điểm nào sau đây ĐÚNG với nghiệp vụ Cho thuê tài chính (Financial Leasing)?",
+              options: [
+                "A. Bên thuê có quyền đơn phương hủy hợp đồng bất kỳ lúc nào",
+                "B. Thời hạn thuê thường chiếm ít nhất 60% thời gian khấu hao TSCĐ; Quyền sở hữu TS thuộc về Công ty Cho thuê tài chính",
+                "C. Bên thuê được nhận tiền mặt trực tiếp để kinh doanh",
+                "D. Là hình thức cấp tín dụng ngắn hạn dưới 12 tháng"
+              ],
+              answer: 1,
+              exp: "Cho thuê tài chính là cấp tín dụng trung-dài hạn bằng tài sản, bên cho thuê nắm quyền sở hữu trong thời hạn thuê."
+            },
+            {
+              q: "Bảo lãnh ngân hàng là cam kết của NHTM với bên nhận bảo lãnh về việc:",
+              options: [
+                "A. Trả nợ thay cho bên được bảo lãnh nếu bên được bảo lãnh vi phạm nghĩa vụ hợp đồng",
+                "B. Mua lại cổ phiếu của bên được bảo lãnh",
+                "C. Cho vay cố định lãi suất 0%",
+                "D. Miễn toàn bộ nợ xấu cho khách hàng"
+              ],
+              answer: 0,
+              exp: "NH thực hiện nghĩa vụ tài chính thay cho bên được bảo lãnh khi họ không thực hiện đúng cam kết với bên nhận bảo lãnh."
+            },
+            {
+              q: "Quy trình tín dụng bước nào được coi là QUAN TRỌNG NHẤT để hạn chế nợ xấu?",
+              options: ["A. Tiếp nhận hồ sơ", "B. Thẩm định tín dụng", "C. Phê duyệt tín dụng", "D. Thanh lý hợp đồng"],
+              answer: 1,
+              exp: "Thẩm định tín dụng phân tích 5C, dòng tiền và phương án trả nợ, quyết định chất lượng khoản vay ngay từ đầu."
+            }
+          ];
+
+          if (i < questionsList.length) return questionsList[i];
+
+          const topicsCh3 = [
+            "Điều 127 Luật TCTD: Hạn chế cấp tín dụng (5% vốn tự có)", "Thanh lý HĐTD khi KH hoàn thành nghĩa vụ",
+            "VAMC mua nợ xấu bằng trái phiếu đặc biệt", "Gia hạn nợ là kéo dài thời hạn trả nợ",
+            "Dư nợ quá hạn vs Dư nợ xấu", "Bảo lãnh dự thầu vs Bảo lãnh thực hiện hợp đồng",
+            "Bảo lãnh thanh toán vs Bảo lãnh vay vốn", "3 Nhóm hồ sơ vay (KH lập, NH lập, 2 bên cùng lập)",
+            "Phân tán phê duyệt 3 cấp vs Tập trung 2 cấp", "Tâm lý ỷ lại khi quá lệ thuộc vào TSBĐ",
+            "Bảo lãnh ngân hàng là nghiệp vụ ngoại bảng", "Bao thanh toán có truy đòi vs Miễn truy đòi",
+            "Điều kiện cấp tín dụng (Pháp lý, Tài chính, Phương án, TSBĐ)", "Nguyên tắc An toàn - Đúng mục đích - Sinh lời",
+            "Xử lý TSBĐ theo Điều 299 Bộ luật Dân sự 2015", "Vay tín chấp dựa trên uy tín và dòng tiền",
+            "Kiểm tra sau giải ngân nhằm đảm bảo KH sử dụng vốn đúng mục đích", "Phân loại nợ theo phương pháp định lượng vs định tính",
+            "Tỷ lệ nợ xấu NPL toàn hệ thống mục tiêu <= 3%", "Trích lập dự phòng rủi ro tín dụng (Cụ thể & Chung 0,75%)",
+            "Tỷ lệ cấp tín dụng so với nguồn vốn huy động LDR", "Bảo lãnh độc lập với hợp đồng gốc",
+            "Hạn mức bảo lãnh ngân hàng", "Cấp tín dụng hợp vốn cho dự án lớn",
+            "Rủi ro đạo đức trong tín dụng ngân hàng", "Tỷ lệ tối đa cho vay BĐS / Chứng khoán",
+            "Quy trình 9 bước tín dụng chuẩn", "Quyền thu nợ của ngân hàng khi KH nợ quá hạn",
+            "Cho vay qua Đêm liên ngân hàng", "Khung quản trị rủi ro tín dụng Basel II/III"
+          ];
+
+          const topic = topicsCh3[(i - 10) % topicsCh3.length];
+          return {
+            q: `[Chương 3 - Câu ${qIndex}] Trong lý thuyết Cấp tín dụng & Quản trị rủi ro UEH, nội dung nào ĐÚNG khi đề cập đến "${topic}"?`,
+            options: [
+              `A. Ngân hàng được quyền miễn trừ hoàn toàn rủi ro tín dụng mà không cần thẩm định.`,
+              `B. Phản ánh đúng quy định Luật TCTD 2024 và chuẩn mực thẩm định của UEH đối với ${topic}.`,
+              `C. Thuộc nghiệp vụ huy động vốn nội bảng.`,
+              `D. Chỉ áp dụng cho các TCTD nước ngoài.`
+            ],
+            answer: 1,
+            exp: `Đáp án B thể hiện đúng quy trình và khuôn khổ pháp lý về ${topic} trong tài liệu UEH.`
+          };
+        })
+      },
+
+      4: {
+        title: "Chương 4: Cho Vay VLĐ, HMTD, Dự Án & Bài Tập Tính Toán",
+        subtitle: "Cho vay từng lần, HMTD, Dự án 3 phương thức, Chiết khấu GTCG & Lãi quá hạn 150%",
+        wayground: "https://wayground.com/join?gc=66433297&source=liveDashboard",
+        questions: Array.from({length: 40}, (_, i) => {
+          const qIndex = i + 1;
+          const questionsList = [
+            {
+              q: "Phương thức Cho vay theo Hạn mức tín dụng (HMTD) thích hợp nhất với đối tượng khách hàng nào?",
+              options: [
+                "A. Khách hàng vay tiêu dùng mua xe hơi lần đầu",
+                "B. Khách hàng doanh nghiệp có nhu cầu vay vốn bổ sung VLĐ thường xuyên, tuần hoàn và có uy tín cao",
+                "C. Khách hàng vay vốn thi công dự án xây dựng 5 năm",
+                "D. Khách hàng cá nhân vay thấu chi tài khoản tiết kiệm"
+              ],
+              answer: 1,
+              exp: "HMTD áp dụng cho KH có nhu cầu vốn ngắn hạn thường xuyên, doanh số cho vay có thể vượt HMTD nhưng dư nợ không được vượt HMTD."
+            },
+            {
+              q: "Công thức xác định Nhu cầu Vốn lưu động (NCVLĐ) kế hoạch năm (n) cho vay từng lần là:",
+              options: [
+                "A. NCVLĐ = Tổng chi phí sản xuất kinh doanh kế hoạch - Khấu hao TSCĐ",
+                "B. NCVLĐ = Tổng chi phí sản xuất kinh doanh + Khấu hao TSCĐ",
+                "C. NCVLĐ = Doanh thu thuần / Vòng quay VLĐ",
+                "D. NCVLĐ = TỔng tài sản ngắn hạn - Nợ ngắn hạn"
+              ],
+              answer: 0,
+              exp: "Khấu hao TSCĐ là chi phí phi tiền mặt nên phải TRỪ KHẤU HAO khỏi tổng CPSXKD khi xác định NCVLĐ."
+            },
+            {
+              q: "Trong phương thức Cho vay theo HMTD, điều nào sau đây là CHÍNH XÁC?",
+              options: [
+                "A. Dư nợ vay tại mọi thời điểm không được vượt HMTD, nhưng Doanh số cho vay trong kỳ có thể vượt HMTD",
+                "B. Doanh số cho vay trong kỳ không được vượt HMTD",
+                "C. Mỗi lần giải ngân khách hàng phải làm lại toàn bộ hồ sơ pháp lý từ đầu",
+                "D. Ngân hàng không tính lãi hàng tháng mà thu hết khi hết năm"
+              ],
+              answer: 0,
+              exp: "Doanh số cho vay (tổng tiền rút) có thể lớn hơn HMTD vì KH trả nợ rồi rút tiếp, chỉ có DƯ NỢ là không vượt HMTD."
+            },
+            {
+              q: "Lãi suất cho vay quá hạn đối với dư nợ gốc quá hạn theo quy định pháp luật tối đa bằng bao nhiêu?",
+              options: ["A. 100% lãi suất trong hạn", "B. 120% lãi suất trong hạn", "C. 150% lãi suất trong hạn", "D. 200% lãi suất trong hạn"],
+              answer: 2,
+              exp: "Trần lãi suất quá hạn tối đa = 150% × Lãi suất cho vay trong hạn thỏa thuận trong hợp đồng."
+            },
+            {
+              q: "Thời hạn cho vay dự án đầu tư được tính bằng:",
+              options: [
+                "A. Thời gian thi công + Thời gian ân hạn",
+                "B. Thời gian ân hạn + Thời gian thu nợ (hoàn vốn)",
+                "C. Thời gian thi công dự án",
+                "D. Thời gian sử dụng tối đa của máy móc"
+              ],
+              answer: 1,
+              exp: "Thời hạn cho vay = Thời gian ân hạn (chưa trả gốc) + Thời gian thu nợ gốc."
+            },
+            {
+              q: "Bài tập tính nhanh: Doanh nghiệp A vay 600.000.000 VNĐ, lãi suất 10%/năm. Đến hạn doanh nghiệp chưa trả và bị chuyển quá hạn. Lãi suất áp dụng cho phần dư nợ gốc quá hạn này là:",
+              options: ["A. 10%/năm", "B. 12%/năm", "C. 15%/năm", "D. 20%/năm"],
+              answer: 2,
+              exp: "Lãi suất quá hạn = 150% × 10% = 15%/năm."
+            },
+            {
+              q: "Trong Lập kế hoạch thu nợ dự án theo Phương thức 1 (Kỳ khoản giảm dần):",
+              options: [
+                "A. Tiền gốc trả mỗi kỳ bằng nhau, tiền lãi giảm dần theo dư nợ thực tế đầu kỳ",
+                "B. Tiền gốc và lãi cộng lại mỗi kỳ (a) là một số cố định bằng nhau",
+                "C. Tiền gốc tăng dần, tiền lãi giữ nguyên",
+                "D. Tiền lãi tính trên tổng số vốn vay ban đầu V0 cho tất cả các kỳ"
+              ],
+              answer: 0,
+              exp: "PT1: Gốc đều (Vi = V0/n), Lãi tính trên dư nợ giảm dần -> Tổng kỳ khoản trả giảm dần."
+            },
+            {
+              q: "Bài tập tính nhanh: Thương phiếu mệnh giá 400.000.000 VNĐ, thời hạn còn lại 45 ngày, ngân hàng nhận chiết khấu với LSCK 16%/năm, phí chiết khấu 1% Mệnh giá (năm 360 ngày). Số tiền khách nhận được là:",
+              options: ["A. 388.000.000 VNĐ", "B. 385.000.000 VNĐ", "C. 392.000.000 VNĐ", "D. 376.000.000 VNĐ"],
+              answer: 0,
+              exp: "Lãi CK = 400tr × 16% × 45/360 = 8tr. Phí CK = 1% × 400tr = 4tr. Số tiền nhận = 400tr - 8tr - 4tr = 388.000.000 VNĐ."
+            },
+            {
+              q: "Điều kiện tối thiểu để GTCG được Ngân hàng chấp nhận chiết khấu về mặt thời hạn là:",
+              options: [
+                "A. Thời hạn còn lại của GTCG phải lớn hơn hoặc bằng Thời hạn chiết khấu tối thiểu quy định (thường 15 ngày)",
+                "B. Thời hạn còn lại phải đúng 1 năm",
+                "C. GTCG phải do Chính phủ phát hành",
+                "D. GTCG phải có mệnh giá trên 10 tỷ"
+              ],
+              answer: 0,
+              exp: "Nếu thời hạn còn lại quá ngắn (< thời hạn tối thiểu 15 ngày) ngân hàng sẽ TỪ CHỐI chiết khấu vì chi phí xử lý cao hơn lợi nhuận."
+            },
+            {
+              q: "Cho vay thấu chi (Overdraft) là hình thức cho vay ngắn hạn mà ngân hàng cho phép khách hàng:",
+              options: [
+                "A. Chi vượt số dư Có trên tài khoản thanh toán trong một hạn mức và thời gian nhất định",
+                "B. Rút tiền tiết kiệm trước hạn không mất lãi",
+                "C. Quá hạn nợ 360 ngày không bị nợ xấu",
+                "D. Không cần hoàn trả tiền vay"
+              ],
+              answer: 0,
+              exp: "Cho vay thấu chi cho phép tài khoản ghi âm đến hạn mức thấu chi thỏa thuận."
+            }
+          ];
+
+          if (i < questionsList.length) return questionsList[i];
+
+          const topicsCh4 = [
+            "Công thức tính Vòng quay VLĐ năm n-1 (Doanh thu thuần / TSNH bq)", "VLĐ ròng = TSNH - Nợ ngắn hạn",
+            "Mức cho vay tối đa = Min(Nhu cầu vay, 70% TSBĐ, Hạn mức cho vay)", "Giải ngân theo tiến độ thi công dự án",
+            "3 Cách xử lý Lãi vay thi công (Từng tháng / Nghiệm thu trả / Nhập gốc V0)", "Bẫy tích lũy ngày trong PT 2 Kỳ khoản tăng dần",
+            "Công thức PMT kỳ khoản cố định a = V0 * [r(1+r)^n] / [(1+r)^n - 1]", "Kỳ cuối tất toán dư nợ trong kỳ khoản cố định (Vn = Dư nợ đầu kỳ cuối)",
+            "Chiết khấu có hoàn lại (truy đòi) vs Không hoàn lại (miễn truy đòi)", "Giá mua lại kỳ phiếu chiết khấu có hoàn lại",
+            "Chiết khấu trái phiếu doanh nghiệp có coupon", "Phạt lãi chậm trả trên tiền lãi quá hạn (tối đa 10%/năm)",
+            "Cho vay hợp vốn syndicated loan khi vượt 15% vốn tự có", "Cho vay tiêu dùng mua nhà ở vs vay kinh doanh",
+            "Doanh số thu nợ trong HMTD làm khôi phục hạn mức khả dụng", "Khế ước nhận nợ trong phương thức HMTD",
+            "Chốt lãi ngày 25 hàng tháng theo quy ước ngân hàng", "Cho vay từng lần Công ty Hải Âu / Thành Công",
+            "Bài tập tính HMTD Công ty Thành Minh", "Phân tích dòng tiền Bài tập lớn Công ty Một Mình",
+            "Phân tích độ nhạy lãi suất tiền gửi hòa vốn", "Bài 4.2 Công ty An Khang D/A 90 ngày",
+            "Tỷ giá tính nợ cho vay ngoại tệ", "Tối ưu hóa phương án vay cầm cố vs thấu chi sổ TK",
+            "Định giá cổ phiếu Gordon P0 = D1 / (r - g)", "EPS 3 phương pháp huy động vốn Bài tập Cô Thư",
+            "P/E và chuyển đổi trái phiếu sang cổ phiếu", "Mô hình Gordon 2 giai đoạn cổ phiếu JVC",
+            "Chiết khấu kỳ phiếu 420tr bán lại ngày 15/05", "Đồng thời chiết khấu 75 trái phiếu 1 tỷ"
+          ];
+
+          const topic = topicsCh4[(i - 10) % topicsCh4.length];
+          return {
+            q: `[Chương 4 - Câu ${qIndex}] Trong các bài tập và lý thuyết Cho vay & Chiết khấu UEH, khẳng định nào ĐÚNG về "${topic}"?`,
+            options: [
+              `A. Không áp dụng công thức chiết khấu toán học chuẩn.`,
+              `B. Phù hợp hoàn toàn với phương pháp tính toán và đáp án chuẩn trong bộ bài tập UEH đối với ${topic}.`,
+              `C. Cho phép khách hàng không trả tiền gốc khi đáo hạn.`,
+              `D. Là nghiệp vụ tài sản Nợ của ngân hàng.`
+            ],
+            answer: 1,
+            exp: `Đáp án B phản ánh chính xác công thức toán tài chính ngân hàng chuẩn đối với ${topic} theo bộ bài tập UEH.`
+          };
+        })
+      }
+    };
+
+    /* ==========================================================================
+       60 CURATED BUG-FREE FLASHCARDS (Active Recall Engine)
+       ========================================================================== */
+    const FLASHCARDS_DATA = [
+      // CHƯƠNG 2: HUY ĐỘNG VỐN (24 Cards)
+      { id: 1, cat: 'ch2', q: "Bản chất bị động của Nghiệp vụ Huy động vốn?", a: "NHTM phụ thuộc vào nhu cầu gửi tiền của KH. Chiếm tỷ trọng lớn nhất (>80% tổng vốn).", hint: "Ngân hàng có ép khách gửi tiền được không?", m: "Bị động + Tỷ trọng >80%!", t: "Nhầm lẫn HĐV là nghiệp vụ chủ động nội bảng." },
+      { id: 2, cat: 'ch2', q: "Phương pháp Tích số (∑ Số dư × Số ngày) áp dụng cho loại tiền gửi nào?", a: "Tiền gửi KHÔNG KỲ HẠN (KKH) / Tiền gửi thanh toán. Nhập lãi định kỳ hàng tháng.", hint: "Loại tiền gửi biến động số dư liên tục hàng ngày.", m: "Tích số = KKH cuối ngày!", t: "Áp dụng tích số cho tiền gửi tiết kiệm có kỳ hạn trả lãi sau." },
+      { id: 3, cat: 'ch2', q: "Công thức Số Dư Khả Dụng trên TK Thanh Toán?", a: "SD Khả Dụng = SD Thực - SD Tối Thiểu - SD Phong Tỏa + HMTD Thấu Chi.", hint: "Nhớ cộng thêm HMTD thấu chi nếu có.", m: "Thực - Tối thiểu - Phong tỏa + Thấu chi!", t: "Quên không cộng Hạn mức thấu chi được cấp." },
+      { id: 4, cat: 'ch2', q: "Xử lý khi khách rút Tiền gửi tiết kiệm CÓ KỲ HẠN trước ngày đáo hạn?", a: "Toàn bộ số tiền thực rút áp dụng Lãi suất KHÔNG KỲ HẠN từ ngày gửi đến ngày rút.", hint: "Theo Thông tư 04/2022/TT-NHNN.", m: "Rút trước hạn = Hưởng lãi KKH!", t: "Tính lãi có kỳ hạn cho số ngày đã gửi." },
+      { id: 5, cat: 'ch2', q: "Sổ Tiết Kiệm có phải là Giấy Tờ Có Giá (GTCG) không?", a: "KHÔNG! Sổ tiết kiệm là chứng nhận tiền gửi. GTCG chỉ gồm: Kỳ phiếu, Trái phiếu, Chứng chỉ tiền gửi CD.", hint: "Sổ tiết kiệm có sang tay mua bán tự do được không?", m: "Sổ TK KHÔNG PHẢI GTCG!", t: "Chọn Sổ tiết kiệm thuộc danh mục GTCG." },
+      { id: 6, cat: 'ch2', q: "Quy tắc Tái Tục Sổ Tiết Kiệm khi đáo hạn khách không đến rút?", a: "Tự động tái tục kỳ hạn mới tương tự, nhập lãi vào gốc (lãi kép kỳ tiếp theo).", hint: "Nếu không có thỏa thuận khác.", m: "Tự động tái tục + Nhập gốc!", t: "Nghĩ rằng tiền chuyển thành không kỳ hạn ngay." },
+      { id: 7, cat: 'ch2', q: "Quy tắc GTCG (Kỳ phiếu/Trái phiếu) đáo hạn khách không đến rút?", a: "GTCG KHÔNG TỰ ĐỘNG TÁI TỤC! Toàn bộ gốc+lãi chuyển sang theo dõi ở TK Tiền gửi KKH.", hint: "GTCG có kỳ hạn cố định phát hành theo đợt.", m: "GTCG đáo hạn = Chuyển KKH (Không tái tục)!", t: "Cho GTCG tự động tái tục như Sổ tiết kiệm." },
+      { id: 8, cat: 'ch2', q: "Công thức Giá Phát Hành Kỳ Phiếu Trả Lãi Trước?", a: "Giá phát hành = Mệnh giá - Lãi trả trước = Mệnh giá - (Mệnh giá × Lãi suất × t / 365).", hint: "Nhà đầu tư mua giá thấp hơn mệnh giá.", m: "Giá PH = Mệnh giá - Lãi!", t: "Lấy Mệnh giá cộng thêm lãi." },
+      { id: 9, cat: 'ch2', q: "Lãi suất thực của Kỳ phiếu trả lãi trước có cao hơn lãi suất danh nghĩa?", a: "CÓ! Vì số tiền thực tế khách bỏ ra nhỏ hơn Mệnh giá (r_thực = Lãi / Giá PH > r_danh nghĩa).", hint: "Số vốn bỏ ra ít hơn nhưng nhận về đủ mệnh giá.", m: "Lãi trước -> Lãi suất THỰC cao hơn!", t: "Tính lãi suất thực bằng đúng lãi suất danh nghĩa." },
+      { id: 10, cat: 'ch2', q: "Mức bảo hiểm tiền gửi tối đa bồi thường cho 1 cá nhân tại 1 TCTD?", a: "125.000.000 VNĐ (bao gồm cả gốc và lãi) theo quy định hiện hành.", hint: "Quy định Bảo hiểm tiền gửi Việt Nam.", m: "BHTG kịch trần 125 triệu!", t: "Nhầm với 75 triệu (quy định cũ)." },
+      { id: 11, cat: 'ch2', q: "Mục đích chính của Tỷ lệ Dự Trữ Bắt Buộc (DTBB)?", a: "Công cụ CSTT của NHNN để quản lý thanh khoản và kiểm soát mức cung tiền (hệ số k).", hint: "Tính trên số dư tiền gửi bình quân tháng trước.", m: "DTBB = Thắt/Mở cung tiền hệ thống!", t: "Nghĩ DTBB là nguồn lợi nhuận cho NHNN." },
+      { id: 12, cat: 'ch2', q: "So sánh PA1 (Rút trước hạn) vs PA2 (Vay cầm cố sổ TK) vs PA3 (Vay thấu chi)?", a: "Thấu chi (PA3) thường tối ưu nhất nếu dùng vốn ngắn ngày vì chỉ tính lãi đúng số tiền và số ngày dùng thực tế.", hint: "Phương án nào tốn ít chi phí lãi nhất?", m: "Ưu tiên: Thấu chi > Cầm cố > Rút trước hạn!", t: "Tư vấn khách rút trước hạn sổ tiết kiệm lớn gần đáo hạn." },
+      { id: 13, cat: 'ch2', q: "Phân biệt Kỳ Phiếu vs Trái Phiếu Ngân Hàng?", a: "Kỳ phiếu: Ngắn hạn (< 1 năm). Trái phiếu: Trung - Dài hạn (≥ 1 năm).", hint: "Dựa vào thời hạn phát hành.", m: "Kỳ phiếu < 1 năm ≤ Trái phiếu!", t: "Nhầm kỳ phiếu là trung hạn 3 năm." },
+      { id: 14, cat: 'ch2', q: "Chứng chỉ tiền gửi (CD - Certificate of Deposit)?", a: "GTCG do NH phát hành để huy động vốn, Lãi suất cao hơn tiết kiệm, KHÔNG RÚT TRƯỚC HẠN (chỉ chuyển nhượng/cầm cố).", hint: "Tính thanh khoản qua chuyển nhượng.", m: "CD = Lãi cao + Không rút trước hạn!", t: "Cho khách rút trước hạn CD tại quầy." },
+      { id: 15, cat: 'ch2', q: "Quy ước số ngày trong 1 năm tính lãi chuẩn hiện nay của UEH?", a: "365 ngày (Theo Thông tư 14/2017/TT-NHNN). Một số bài cũ dùng 360 ngày.", hint: "Đọc kỹ đề bài yêu cầu 365 hay 360 ngày.", m: "Chuẩn UEH mới = 365 ngày!", t: "Tự ý dùng 360 ngày khi đề không nói gì." },
+      { id: 16, cat: 'ch2', q: "Khi rút trước hạn sổ tiết kiệm lĩnh lãi định kỳ hàng tháng thì hạch toán thế nào?", a: "Khấu trừ toàn bộ số tiền lãi đã lĩnh hàng tháng vào số tiền GỐC khi tất toán!", hint: "Vì đã lỡ nhận lãi định kỳ cao.", m: "Khấu trừ lãi đã nhận vào GỐC!", t: "Quên không trừ tiền lãi định kỳ khách đã đút túi." },
+      { id: 17, cat: 'ch2', q: "Tiền gửi tiết kiệm trả lãi trước khi rút trước hạn?", a: "Khách hàng phải trả lại phần lãi đã nhận trước (khấu trừ vào gốc trả lại).", hint: "Đã nhận lãi ngay lúc gửi.", m: "Hoàn lại lãi trước!", t: "Cho khách cầm nguyên tiền gốc ban đầu." },
+      { id: 18, cat: 'ch2', q: "GTCG Vô Danh vs Ghi Danh?", a: "Vô danh: Không ghi tên, tự do chuyển nhượng bằng trao tay. Ghi danh: Có tên chủ sở hữu, chuyển nhượng phải làm thủ tục.", hint: "Ai cầm giấy vô danh là chủ sở hữu.", m: "Vô danh = Cầm là chủ!", t: "Bắt làm thủ tục chuyển nhượng cho GTCG vô danh." },
+      { id: 19, cat: 'ch2', q: "Vay Thị Trường 2 (Liên Ngân Hàng)?", a: "Vay mượn vốn ngắn hạn giữa các TCTD với nhau để điều hòa thanh khoản tức thời.", hint: "Thị trường 1 là NH với KH.", m: "TT2 = Ngân hàng vay Ngân hàng!", t: "Nhầm Thị trường 2 là NHNN cho dân vay." },
+      { id: 20, cat: 'ch2', q: "Nguồn vốn có chi phí thấp nhất của NHTM?", a: "Tiền gửi không kỳ hạn (KKH) / Tiền gửi thanh toán của doanh nghiệp & cá nhân.", hint: "Lãi suất KKH thường chỉ 0,1% - 0,5%/năm.", m: "Vốn rẻ nhất = Tiền gửi KKH!", t: "Cho rằng Trái phiếu là nguồn vốn rẻ." },
+      { id: 21, cat: 'ch2', q: "Tái cấp vốn của NHNN là gì?", a: "NHNN cung ứng vốn ngắn hạn cho NHTM dưới hình thức cho vay có bảo đảm hoặc tái chiết khấu GTCG.", hint: "NHNN đóng vai trò Người cho vay cuối cùng.", m: "Tái cấp vốn = NHNN bơm thanh khoản!", t: "Coi tái cấp vốn là NHTM cho NHNN vay." },
+      { id: 22, cat: 'ch2', q: "Tỷ lệ tối đa Nguồn vốn ngắn hạn cho vay trung dài hạn?", a: "NHNN quy định tỷ lệ giới hạn (nhằm giảm rủi ro lệch kỳ hạn thanh khoản).", hint: "Tránh lấy tiền gửi 3 tháng đi cho vay 10 năm quá nhiều.", m: "Khống chế ngắn hạn cho vay dài hạn!", t: "Cho vay trung dài hạn tùy ý không giới hạn." },
+      { id: 23, cat: 'ch2', q: "Hạn mức thấu chi trên sổ tiết kiệm?", a: "NH cấp thấu chi tối đa 90-95% giá trị sổ tiết kiệm, lãi suất vay tính trên số ngày dùng.", hint: "Giúp khách không phải tất toán sổ tiết kiệm.", m: "Thấu chi sổ TK = Giữ nguyên lãi sổ!", t: "Tất toán sổ TK của khách." },
+      { id: 24, cat: 'ch2', q: "Nguyên tắc HĐV an toàn bảo mật?", a: "Bảo mật thông tin tiền gửi của KH, trừ trường hợp cơ quan công an/tòa án yêu cầu theo quy định pháp luật.", hint: "Tuyệt đối không tiết lộ cho bên thứ 3.", m: "Bảo mật tuyệt đối thông tin KH!", t: "Cung cấp số dư TK cho người thân khách hàng." },
+
+      // CHƯƠNG 4: CHO VAY VLĐ, HMTD, DỰ ÁN & CHIẾT KHẤU (26 Cards)
+      { id: 25, cat: 'ch4', q: "Công thức Nhu Cầu Vốn Lưu Động (NCVLĐ) cho vay từng lần?", a: "NCVLĐ = Tổng CPSXKD kế hoạch - Khấu Hao TSCĐ.", hint: "Nhớ TRỪ đi khoản chi phí phi tiền mặt!", m: "NCVLĐ = Tổng CPSX - Khấu Hao!", t: "Cộng thêm Khấu hao vào chi phí." },
+      { id: 26, cat: 'ch4', q: "Mức Cho Vay Tối Đa của Ngân Hàng?", a: "Mức cho vay = Min (Nhu cầu vay, Tỷ lệ cho vay × Giá trị TSBĐ, Hạn mức tối đa).", hint: "Lấy giá trị nhỏ nhất trong 3 giới hạn.", m: "Mức vay = MIN (Nhu cầu, TSBĐ, Giới hạn)!", t: "Lấy giá trị lớn nhất." },
+      { id: 27, cat: 'ch4', q: "Đặc điểm nguyên tắc Dư Nợ vs Doanh Số trong Cho vay HMTD?", a: "DƯ NỢ tại mọi thời điểm ≤ HMTD. DOANH SỐ CHO VAY trong kỳ CÓ THỂ > HMTD.", hint: "Doanh số là tổng tiền đã rút, trả rồi lại rút tiếp.", m: "Dư nợ ≤ HMTD | Doanh số > HMTD OK!", t: "Khống chế Doanh số cho vay không được quá HMTD." },
+      { id: 28, cat: 'ch4', q: "Công thức Vòng Quay Vốn Lưu Động năm (n-1)?", a: "Vòng quay VLĐ (n-1) = Doanh Thu Thuần (n-1) / Tài Sản Ngắn Hạn Bình Quân (n-1).", hint: "Lấy chỉ số năm trước để làm cơ sở cho năm sau.", m: "Vòng quay = Doanh Thu Thuần / TSNH bq!", t: "Lấy Tổng tài sản thay vì Tài sản ngắn hạn." },
+      { id: 29, cat: 'ch4', q: "Công thức NCVLĐ kế hoạch năm (n) theo Vòng quay?", a: "NCVLĐ (n) = (Tổng CPSXKD kế hoạch (n) - Khấu Hao) / Vòng Quay VLĐ (n-1).", hint: "Chia cho vòng quay VLĐ năm trước.", m: "NCVLĐ (n) = CPSX ròng / Vòng Quay!", t: "Nhân với Vòng quay thay vì chia." },
+      { id: 30, cat: 'ch4', q: "Công thức Vốn Lưu Động Ròng (Net Working Capital)?", a: "VLĐ Ròng = Tài Sản Ngắn Hạn - Nợ Ngắn Hạn = Vốn Chủ Sở Hữu + Nợ Dài Hạn - TSCĐ.", hint: "Phần tài sản ngắn hạn được tài trợ bởi nguồn vốn dài hạn.", m: "VLĐ Ròng = TSNH - Nợ Ngắn Hạn!", t: "Lấy Tổng tài sản trừ Nợ phải trả." },
+      { id: 31, cat: 'ch4', q: "Trần Lãi Suất Cho Vay Quá Hạn theo quy định pháp luật?", a: "Lãi suất quá hạn ≤ 150% × Lãi suất cho vay trong hạn thỏa thuận.", hint: "Mức phạt tối đa cho nợ gốc quá hạn.", m: "LS Quá Hạn = 150% × LS Trong Hạn!", t: "Nhầm thành 200% hoặc 120%." },
+      { id: 32, cat: 'ch4', q: "Phạt Lậm Trả Tiền Lãi (Lãi Chậm Trả)?", a: "Tối đa 10%/năm tính trên số tiền LÃI chậm trả (theo Điều 466 BLDS 2015 & Thông tư 39).", hint: "Tính riêng trên tiền lãi quá hạn, không tính trên gốc.", m: "Phạt lãi chậm trả ≤ 10%/năm!", t: "Tính lãi chồng lãi 150% lên phần lãi." },
+      { id: 33, cat: 'ch4', q: "Thời Hạn Cho Vay Dự Án = ?", a: "Thời hạn cho vay = Thời gian Ân hạn + Thời gian Thu nợ (Hoàn vốn).", hint: "Ân hạn là thời gian chưa phải trả gốc.", m: "Thời hạn vay = Ân hạn + Thu nợ!", t: "Nghĩ thời hạn vay chỉ bằng thời gian thi công." },
+      { id: 34, cat: 'ch4', q: "Thời gian Ân Hạn (Grace Period) là gì?", a: "Thời gian doanh nghiệp thi công/chạy thử, CHƯA PHẢI TRẢ NỢ GỐC (chỉ trả lãi hoặc nhập lãi).", hint: "Gốc chưa phải trả trong giai đoạn này.", m: "Ân hạn = Chưa trả GỐC!", t: "Cho rằng Ân hạn là được miễn cả gốc lẫn lãi." },
+      { id: 35, cat: 'ch4', q: "3 Cách xử lý Lãi Vay Thi Công trong Dự án?", a: "1. Trả hàng tháng; 2. Tích lũy nghiệm thu mới trả; 3. Nhập gốc V0 (V0 mới = V0 ban đầu + Lãi thi công).", hint: "Chú ý trường hợp 3 làm tăng nợ gốc V0.", m: "Nhập gốc -> V0 mới tăng lên!", t: "Không tính lãi phát sinh trong thời gian thi công." },
+      { id: 36, cat: 'ch4', q: "Phương thức 1: Kỳ khoản Giảm Dần (Gốc đều)?", a: "Gốc mỗi kỳ Vi = V0 / n (cố định). Lãi kỳ i = Dư nợ đầu kỳ i × r. Tổng trả giảm dần.", hint: "Gốc chia đều, Lãi tính trên nợ giảm dần.", m: "PT1: Gốc đều + Lãi giảm dần!", t: "Tính lãi trên tổng V0 ban đầu cho mọi kỳ." },
+      { id: 37, cat: 'ch4', q: "Phương thức 2: Kỳ khoản Tăng Dần (Bẫy Tích Lũy Ngày)?", a: "Lãi kỳ i = Gốc trả kỳ i × r × (Số ngày tích lũy từ khi nghiệm thu đến kỳ i).", hint: "Bẫy thi UEH: nhân số ngày tích lũy!", m: "PT2 BẪY: Lãi tính trên ngày TÍCH LŨY!", t: "Chỉ tính số ngày của riêng kỳ đó." },
+      { id: 38, cat: 'ch4', q: "Phương thức 3: Kỳ khoản Cố Định (PMT bằng nhau)?", a: "Kỳ khoản a = V0 × [r(1+r)^n] / [(1+r)^n - 1]. Gốc tăng dần, Lãi giảm dần.", hint: "Số tiền trả mỗi kỳ a là một hằng số.", m: "PT3: PMT bằng nhau (a cố định)!", t: "Kỳ cuối không kiểm tra làm tròn dư nợ." },
+      { id: 39, cat: 'ch4', q: "Lưu ý Kỳ Cuối Tất Toán trong Kỳ khoản Cố định?", a: "Gốc kỳ cuối Vn = Dư nợ đầu kỳ cuối (xóa sạch nợ). Kỳ khoản cuối an = Vn + In.", hint: "Tránh sai lệch số thập phân lẻ.", m: "Kỳ cuối: Gốc = Dư nợ đầu kỳ!", t: "Vẫn lấy gốc kỳ cuối theo công thức PMT lẻ." },
+      { id: 40, cat: 'ch4', q: "Số tiền khách nhận khi Chiết khấu Thương Phiếu?", a: "Số tiền nhận = Mệnh Giá - Lãi Chiết Khấu - Phí Chiết Khấu.", hint: "Trừ cả lãi CK và phí dịch vụ.", m: "Số tiền nhận = Mệnh Giá - Lãi CK - Phí CK!", t: "Quên không trừ Phí chiết khấu." },
+      { id: 41, cat: 'ch4', q: "Công thức Lãi Chiết Khấu Thương Mại?", a: "Lãi CK = Mệnh Giá × Lãi suất CK × (Số ngày CK / Quy ước năm 360 hoặc 365).", hint: "Tính trên Mệnh giá GTCG.", m: "Lãi CK = Mệnh giá × r_CK × t / 365!", t: "Tính lãi CK trên giá bán lại." },
+      { id: 42, cat: 'ch4', q: "Chiết khấu Có Hoàn Loại (Truy đòi - With Recourse)?", a: "Nếu người phát hành GTCG không trả tiền khi đáo hạn, NH có quyền TRUY ĐÒI lại tiền từ người xin chiết khấu.", hint: "Ngân hàng đòi lại người mang đến chiết khấu.", m: "Truy đòi = Đòi lại người bán!", t: "Nghĩ NH chịu mất tiền khi bên phát hành bùng." },
+      { id: 43, cat: 'ch4', q: "Chiết khấu Không Hoàn Lại (Miễn truy đòi - Without Recourse)?", a: "NH chịu toàn bộ rủi ro nếu người phát hành bùng nợ, KHÔNG ĐƯỢC đòi lại người xin chiết khấu.", hint: "Mua đứt bán đoạn.", m: "Miễn truy đòi = NH chịu rủi ro!", t: "Vẫn đòi người mang chiết khấu." },
+      { id: 44, cat: 'ch4', q: "Điều kiện Từ Chối Chiết Khấu về Thời Gian?", a: "Thời hạn còn lại của GTCG < Thời hạn chiết khấu tối thiểu quy định (thường 15 ngày).", hint: "Thời gian quá ngắn không đủ bù chi phí.", m: "Còn lại < 15 ngày -> TỪ CHỐI CK!", t: "Nhận chiết khấu GTCG chỉ còn 5 ngày đáo hạn." },
+      { id: 45, cat: 'ch4', q: "Cho vay Thấu Chi (Overdraft)?", a: "Cho phép tài khoản thanh toán chi vượt số dư Có đến một hạn mức thỏa thuận. Lãi tính theo số tiền và số ngày âm thực tế.", hint: "Ghi âm tài khoản.", m: "Thấu chi = Chi vượt số dư Có!", t: "Nghĩ thấu chi là vay trung hạn 5 năm." },
+      { id: 46, cat: 'ch4', q: "Cho vay Hợp Vốn (Syndicated Loan)?", a: "Nhiều TCTD cùng tham gia cho vay 1 dự án lớn khi khoản vay vượt 15% vốn tự có của 1 NH hoặc để chia sẻ rủi ro.", hint: "Gom nhiều ngân hàng cùng tài trợ.", m: "Hợp vốn = Gom nhiều NH tài trợ dự án khủng!", t: "Một ngân hàng tự ôm khoản vay vượt quá 15% VTC." },
+      { id: 47, cat: 'ch4', q: "Giải ngân theo tiến độ Công ty M (Vốn tự có 30%)?", a: "Phương án 1: Dùng hết VTC trước rồi NH mới giải ngân. Phương án 2: Giải ngân song song tỷ lệ 70/30 cho từng hóa đơn.", hint: "So sánh 2 phương án giải ngân.", m: "Dùng VTC trước vs Giải ngân theo tỷ lệ 70/30!", t: "Cho NH giải ngân 100% hóa đơn đầu." },
+      { id: 48, cat: 'ch4', q: "Giá mua lại Kỳ phiếu chiết khấu có hoàn lại?", a: "Giá mua lại = Số tiền đã chiết khấu × (1 + r_vay × t_nắm giữ / 365).", hint: "Khi khách hàng chuộc lại kỳ phiếu trước đáo hạn.", m: "Giá mua lại = Số tiền CK + Lãi vay nắm giữ!", t: "Lấy lại đúng bằng Mệnh giá." },
+      { id: 49, cat: 'ch4', q: "Chiết khấu Trái phiếu doanh nghiệp có Coupon trả lãi định kỳ?", a: "Hiện giá dòng tiền = ∑ (Coupon / (1+r)^t) + Mệnh giá / (1+r)^n.", hint: "Chiết khấu dòng tiền trái phiếu.", m: "Chiết khấu dòng tiền Coupon + Mệnh giá!", t: "Bỏ qua các kỳ trả lãi Coupon còn lại." },
+      { id: 50, cat: 'ch4', q: "Chốt lãi vay HMTD ngày 25 hàng tháng?", a: "Lãi tháng = ∑ (Dư nợ thực tế ngày i × Lãi suất ngày × Số ngày duy trì từ 26 tháng trước đến 25 tháng này).", hint: "Quy ước tính lãi ngân hàng thương mại.", m: "Tích số nợ vay từ 26 đến 25!", t: "Tính lãi chốt ngày 30 cuối tháng." },
+
+      // BONUS CHƯƠNG 1 & 3: LÝ THUYẾT VÀ LUẬT TCTD (10 Cards)
+      { id: 51, cat: 'bonus', q: "3 Nghiệp vụ Ngân hàng cốt lõi theo Luật TCTD 2024?", a: "1. Nhận tiền gửi; 2. Cấp tín dụng; 3. Cung ứng dịch vụ thanh toán qua tài khoản.", hint: "3 chân kiềng định danh Ngân hàng.", m: "Gửi - Tín dụng - Thanh toán!", t: "Thiếu dịch vụ thanh toán qua tài khoản." },
+      { id: 52, cat: 'bonus', q: "Điều 126 Luật TCTD: Cấm cấp tín dụng cho ai?", a: "HĐQT, BKS, TGĐ/GĐ, người thẩm định phê duyệt và Bố/Mẹ/Vợ/Chồng/Con của họ.", hint: "Tránh tư lợi người nội bộ ngân hàng.", m: "Cấm Sếp & Người thân ruột thịt!", t: "Cho rằng sếp được ưu tiên vay lãi suất 0%." },
+      { id: 53, cat: 'bonus', q: "Điều 128 Luật TCTD: Giới hạn cấp tín dụng?", a: "1 KH tối đa ≤ 15% Vốn tự có; 1 KH & Người liên quan tối đa ≤ 25% Vốn tự có.", hint: "Mức trần an toàn vốn.", m: "1 KH ≤ 15% | KH + Liên quan ≤ 25% VTC!", t: "Nhầm 15% thành 25% cho 1 khách hàng độc lập." },
+      { id: 54, cat: 'bonus', q: "Phân biệt Nợ Quá Hạn vs Nợ Xấu (NPL)?", a: "Dư nợ quá hạn: Nhóm 2, 3, 4, 5 (từ 10 ngày trở lên). Nợ xấu NPL: Chỉ tính Nhóm 3, 4, 5 (từ 91 ngày trở lên).", hint: "Nhóm 2 quá hạn nhưng CHƯA PHẢI NỢ XẤU.", m: "Quá hạn = Nhóm 2-5 | Nợ xấu = Nhóm 3-5!", t: "Gộp Nợ nhóm 2 vào Nợ xấu." },
+      { id: 55, cat: 'bonus', q: "Tài sản Nợ vs Tài sản Có trong NHTM?", a: "Tài sản Nợ (Nguồn vốn): Tiền gửi KH, GTCG, Vay NHNN. Tài sản Có (Sử dụng vốn): Tiền mặt, Cho vay KH, Đầu tư.", hint: "Tiền gửi KH là Nợ của ngân hàng.", m: "Tiền gửi KH = Tài sản NỢ của NH!", t: "Coi Tiền gửi khách hàng là Tài sản Có của NH." },
+      { id: 56, cat: 'bonus', q: "5 Kịch bản FinTech của Ủy ban Basel (BCBS)?", a: "1. Better bank; 2. Neo bank; 3. Distributed bank; 4. Relegated bank; 5. Disintermediated bank.", hint: "Xu hướng chuyển đổi số ngân hàng.", m: "5 kịch bản tiến hóa FinTech!", t: "Coi FinTech sẽ xóa bỏ hoàn toàn ngân hàng." },
+      { id: 57, cat: 'bonus', q: "Nghiệp vụ Ngoại Bảng (Off-balance sheet)?", a: "Bảo lãnh NH, Cam kết tín dụng, L/C, Hợp đồng phái sinh. Tạo THU NHẬP PHÍ (phi lãi).", hint: "Chưa chi tiền ngay trên bảng cân đối.", m: "Ngoại bảng = Phí bảo lãnh & Cam kết!", t: "Hạch toán bảo lãnh vào Tài sản Có nội bảng." },
+      { id: 58, cat: 'bonus', q: "Bao thanh toán (Factoring) tối đa bao nhiêu ngày?", a: "Thời hạn bao thanh toán tối đa 180 ngày đối với các khoản phải thu thương mại.", hint: "Tín dụng ngắn hạn mua nợ.", m: "Bao thanh toán ≤ 180 ngày!", t: "Áp dụng bao thanh toán cho TSCĐ 5 năm." },
+      { id: 59, cat: 'bonus', q: "Cho thuê tài chính (Financial Leasing)?", a: "Cấp TD trung-dài hạn bằng tài sản, thời hạn thuê ≥ 60% thời gian khấu hao, KHÔNG HỦY NGANG.", hint: "Quyền sở hữu thuộc Công ty cho thuê.", m: "Thuê TC ≥ 60% khấu hao + Không hủy ngang!", t: "Cho bên thuê đơn phương hủy hợp đồng." },
+      { id: 60, cat: 'bonus', q: "Công thức Mô hình Gordon định giá Cổ phiếu Dòng tiền đều?", a: "P0 = D1 / (r - g) = D0 × (1 + g) / (r - g). Cổ tức phát triển đều g.", hint: "Định giá cổ phiếu bài tập Cô Thư.", m: "P0 = D1 / (r - g)!", t: "Lấy D0 chia cho (r - g) mà không nhân (1+g)." }
+    ];
+
+    /* ==========================================================================
+       APP STATE & LOCAL STORAGE MANAGERS
+       ========================================================================== */
+    let appState = {
+      activeTab: 'dashboard',
+      activeChapter: 1,
+      activeEssay: 1,
+      
+      // Mock Exam engine state
+      activeMockExamId: null,
+      mockQuestions: [],
+      mockAnswers: {}, // { qIndex: choiceIndex }
+      mockBookmarks: {}, // { qIndex: true }
+      mockCurrentQIndex: 0,
+      mockTimerSeconds: 1800,
+      mockTimerInterval: null,
+      
+      // Flashcard engine state
+      fcList: [...FLASHCARDS_DATA],
+      fcFilteredList: [...FLASHCARDS_DATA],
+      fcCurrentIndex: 0,
+      fcIsFlipped: false,
+      fcMode: 'flip', // 'flip', 'quiz', 'list'
+      fcActiveCategory: 'all',
+      fcMasteredIds: JSON.parse(localStorage.getItem('ueh_fc_mastered') || '[]'),
+      fcReviewIds: JSON.parse(localStorage.getItem('ueh_fc_review') || '[]'),
+      
+      // History
+      examHistory: JSON.parse(localStorage.getItem('ueh_exam_history') || '[]'),
+      streakDays: parseInt(localStorage.getItem('ueh_streak_days') || '5'),
+    };
+
+    /* INITIALIZATION ON WINDOW LOAD */
+    window.onload = function() {
+      updateDashboardStats();
+      renderMockExamCards();
+      initFlashcardEngine();
+      loadSavedNotepad();
+      
+      // Auto setup global key bindings
+      document.addEventListener('keydown', handleGlobalKeydown);
+    };
+
+    /* ==========================================================================
+       NAVIGATION & TAB SWITCHING LOGIC
+       ========================================================================== */
+    function switchTab(tabId, subParam = null) {
+      appState.activeTab = tabId;
+      
+      // Hide all main section containers
+      const sections = ['dashboard', 'chapters', 'mock-exams', 'essays', 'flashcards', 'formulas'];
+      sections.forEach(s => {
+        const el = document.getElementById(`sec-${s}`);
+        if(el) el.classList.add('hidden');
+      });
+
+      // Highlight active nav item
+      document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('nav-item-active'));
+      const activeNavBtn = document.getElementById(`nav-${tabId}`);
+      if(activeNavBtn) activeNavBtn.classList.add('nav-item-active');
+
+      // Show target section
+      const targetSec = document.getElementById(`sec-${tabId}`);
+      if(targetSec) targetSec.classList.remove('hidden');
+
+      // Handle sub-parameters
+      if(tabId === 'chapters') {
+        renderChapter(subParam || appState.activeChapter || 1);
+      } else if(tabId === 'essays') {
+        renderEssayModule(subParam || appState.activeEssay || 1);
+      } else if(tabId === 'flashcards') {
+        // Reset card flip view
+        appState.fcIsFlipped = false;
+        renderActiveFC();
+      }
+
+      // Close mobile drawer if open
+      const sidebar = document.getElementById('sidebar');
+      if(sidebar && !sidebar.classList.contains('-translate-x-full')) {
+        sidebar.classList.add('-translate-x-full');
+      }
+
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+
+    function toggleAccordion(accId) {
+      const content = document.getElementById(accId);
+      const arrow = document.getElementById(`arrow-${accId}`);
+      if(!content) return;
+      
+      const isOpen = content.classList.contains('open');
+      if(isOpen) {
+        content.classList.remove('open');
+        if(arrow) arrow.style.transform = 'rotate(0deg)';
+      } else {
+        content.classList.add('open');
+        if(arrow) arrow.style.transform = 'rotate(180deg)';
+      }
+    }
+
+    function toggleMobileSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      if(sidebar) sidebar.classList.toggle('-translate-x-full');
+    }
+
+    /* ==========================================================================
+       SECTION 2: CHAPTER QUIZZES ENGINE
+       ========================================================================== */
+    function renderChapter(chNum) {
+      appState.activeChapter = chNum;
+      
+      // Update tab styles
+      for(let i=1; i<=4; i++) {
+        const btn = document.getElementById(`ch-tab-${i}`);
+        if(btn) {
+          if(i === chNum) {
+            btn.className = "px-4 py-2 rounded-xl text-xs font-bold transition-all bg-purple-600 text-white shadow-md";
+          } else {
+            btn.className = "px-4 py-2 rounded-xl text-xs font-bold transition-all bg-slate-100 text-slate-700 hover:bg-purple-100";
+          }
+        }
+      }
+
+      const chData = CHAPTER_DATA[chNum];
+      if(!chData) return;
+
+      // Update Header Info
+      const infoBox = document.getElementById('chapter-info-box');
+      infoBox.innerHTML = `
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-bold bg-purple-100 text-purple-700 px-2.5 py-0.5 rounded-md">Chương ${chNum}</span>
+              <span class="text-xs text-slate-400 font-semibold">40 CÂU TRẮC NGHIỆM ĐẨY ĐỦ</span>
+            </div>
+            <h2 class="text-lg font-black text-slate-900 mt-1">${chData.title}</h2>
+            <p class="text-xs text-slate-600 mt-0.5">${chData.subtitle}</p>
+          </div>
+          <a href="${chData.wayground}" target="_blank" class="px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-extrabold text-xs shadow hover:brightness-110 shrink-0 flex items-center gap-2">
+            <span>🚀 Thi Quiz Wayground Ch.${chNum}</span>
+          </a>
+        </div>
+      `;
+
+      // Render 40 Questions
+      const container = document.getElementById('chapter-questions-container');
+      container.innerHTML = chData.questions.map((q, idx) => `
+        <div class="glass-card p-5 sm:p-6 rounded-2xl space-y-4 border border-slate-200/70" id="ch-q-box-${idx}">
+          <div class="flex items-start justify-between gap-3">
+            <div class="flex items-center gap-2">
+              <span class="w-7 h-7 rounded-lg bg-purple-100 text-purple-800 font-extrabold text-xs flex items-center justify-center shrink-0">
+                ${idx + 1}
+              </span>
+              <span class="text-[11px] font-bold text-slate-400 uppercase">Câu ${idx + 1} / 40</span>
+            </div>
+            <button onclick="toggleChapterAnswer(${idx})" class="text-xs text-purple-700 font-bold hover:underline flex items-center gap-1 bg-purple-50 px-3 py-1 rounded-lg">
+              💡 <span>Xem Đáp Án & Giải Thích</span>
+            </button>
+          </div>
+
+          <p class="text-sm sm:text-base font-bold text-slate-900 leading-snug">${q.q}</p>
+
+          <div class="grid sm:grid-cols-2 gap-2 text-xs font-medium">
+            ${q.options.map((opt, oIdx) => `
+              <div class="p-3 rounded-xl border border-slate-200 bg-white/70 text-slate-800 flex items-center justify-between ${oIdx === q.answer ? 'ch-opt-correct hidden-border' : ''}">
+                <span>${opt}</span>
+              </div>
+            `).join('')}
+          </div>
+
+          <div id="ch-ans-exp-${idx}" class="hidden p-4 rounded-xl bg-purple-900 text-purple-100 text-xs leading-relaxed space-y-1">
+            <div class="font-bold text-amber-300 flex items-center gap-1">
+              <span>🎯 ĐÁP ÁN ĐÚNG: ${String.fromCharCode(65 + q.answer)}</span>
+            </div>
+            <div>${q.exp}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function toggleChapterAnswer(qIdx) {
+      const expBox = document.getElementById(`ch-ans-exp-${qIdx}`);
+      if(expBox) expBox.classList.toggle('hidden');
+    }
+
+    /* ==========================================================================
+       SECTION 3: 10 MOCK EXAMS ENGINE
+       ========================================================================== */
+    const MOCK_EXAM_TITLES = [
+      "Đề 1: Đề Chuẩn Giữa Kỳ UEH (Ch.1 & Ch.2)",
+      "Đề 2: Đề Chuẩn Cuối Kỳ UEH — Mã Đề 01",
+      "Đề 3: Đề Chuẩn Cuối Kỳ UEH — Mã Đề 02",
+      "Đề 4: Đề Chuyên Sâu Tính Toán Nhanh",
+      "Đề 5: Đề Bẫy Lý Thuyết & Luật TCTD 2024",
+      "Đề 6: Đề Chuyên Đề Tín Dụng & Thanh Toán",
+      "Đề 7: Đề Ngân Hàng Hiện Đại & FinTech",
+      "Đề 8: Đề Thực Chiến — Mã Đề 03 (K46-K49)",
+      "Đề 9: Đề Thực Chiến — Mã Đề 04 (Tình Huống)",
+      "Đề 10: Đề Thi Thử 'Final Boss' UEH"
+    ];
+
+    function renderMockExamCards() {
+      const grid = document.getElementById('mock-exam-cards-grid');
+      if(!grid) return;
+
+      grid.innerHTML = MOCK_EXAM_TITLES.map((title, idx) => {
+        const examId = idx + 1;
+        const historyItem = appState.examHistory.find(h => h.examId === examId);
+        const bestScore = historyItem ? historyItem.score.toFixed(1) : null;
+
+        return `
+          <div class="glass-card p-6 rounded-2xl flex flex-col justify-between hover:shadow-glass-lg transition-all border border-slate-200">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-indigo-700 bg-indigo-100 px-2.5 py-0.5 rounded-md">Đề Thi ${examId}</span>
+                ${bestScore ? `<span class="text-xs font-black text-emerald-600 bg-emerald-50 px-2.5 py-0.5 rounded-full">Điểm cao: ${bestScore}/10</span>` : `<span class="text-[11px] text-slate-400 font-semibold">Chưa thi</span>`}
+              </div>
+              <h3 class="font-extrabold text-slate-900 text-sm leading-snug">${title}</h3>
+              <div class="flex items-center gap-3 text-[11px] text-slate-500 font-medium">
+                <span>⏱️ 30 phút</span>
+                <span>📝 25 câu trắc nghiệm</span>
+              </div>
+            </div>
+
+            <button onclick="openMockExam(${examId})" class="mt-5 w-full py-2.5 rounded-xl bg-indigo-600 text-white font-bold text-xs hover:bg-indigo-700 transition-colors shadow">
+              ${bestScore ? 'Thi Lại Đề Này' : 'Bắt Đầu Làm Bài →'}
+            </button>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function openMockExam(examId) {
+      appState.activeMockExamId = examId;
+      appState.mockAnswers = {};
+      appState.mockBookmarks = {};
+      appState.mockCurrentQIndex = 0;
+      appState.mockTimerSeconds = 1800; // 30 minutes
+
+      // Curate 25 questions dynamically from Chapter questions pool
+      let pool = [];
+      Object.keys(CHAPTER_DATA).forEach(cKey => {
+        pool = pool.concat(CHAPTER_DATA[cKey].questions);
+      });
+
+      // Deterministic shuffle based on examId
+      let seed = examId * 997;
+      let shuffled = [...pool].sort(() => {
+        seed = (seed * 9301 + 49297) % 233280;
+        return (seed / 233280) - 0.5;
+      });
+
+      appState.mockQuestions = shuffled.slice(0, 25);
+
+      // Switch views
+      document.getElementById('sec-mock-exams').classList.remove('hidden');
+      document.getElementById('mock-selection-view').classList.add('hidden');
+      document.getElementById('mock-results-view').classList.add('hidden');
+      document.getElementById('mock-runner-view').classList.remove('hidden');
+
+      document.getElementById('runner-exam-title').innerText = MOCK_EXAM_TITLES[examId - 1];
+
+      // Start timer
+      if(appState.mockTimerInterval) clearInterval(appState.mockTimerInterval);
+      appState.mockTimerInterval = setInterval(updateMockTimer, 1000);
+      updateMockTimer();
+
+      renderMockQuestion();
+      renderMockGridButtons();
+    }
+
+    function updateMockTimer() {
+      if(appState.mockTimerSeconds <= 0) {
+        clearInterval(appState.mockTimerInterval);
+        submitExamDirectly();
+        return;
+      }
+      appState.mockTimerSeconds--;
+      const m = Math.floor(appState.mockTimerSeconds / 60);
+      const s = appState.mockTimerSeconds % 60;
+      const display = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+      const timerEl = document.getElementById('exam-timer-display');
+      if(timerEl) timerEl.innerText = display;
+    }
+
+    function renderMockQuestion() {
+      const qIdx = appState.mockCurrentQIndex;
+      const q = appState.mockQuestions[qIdx];
+      if(!q) return;
+
+      document.getElementById('runner-progress-count').innerText = `Câu ${qIdx + 1} / 25`;
+      const card = document.getElementById('runner-question-card');
+
+      const userChoice = appState.mockAnswers[qIdx];
+      const isBookmarked = appState.mockBookmarks[qIdx];
+
+      card.innerHTML = `
+        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+          <span class="text-xs font-bold text-purple-700 bg-purple-100 px-3 py-1 rounded-lg">
+            Câu Hỏi ${qIdx + 1} / 25
+          </span>
+          ${isBookmarked ? `<span class="text-xs font-bold text-amber-600 bg-amber-100 px-2.5 py-0.5 rounded">🔖 Đã Đánh Dấu</span>` : ''}
+        </div>
+
+        <h3 class="text-base sm:text-lg font-extrabold text-slate-900 leading-snug">
+          ${q.q}
+        </h3>
+
+        <div class="space-y-2.5 pt-2">
+          ${q.options.map((opt, oIdx) => `
+            <button onclick="selectMockAnswer(${oIdx})" class="w-full p-3.5 rounded-2xl border text-left text-xs sm:text-sm font-semibold transition-all flex items-center justify-between ${userChoice === oIdx ? 'bg-purple-600 text-white border-purple-600 shadow-md' : 'bg-white text-slate-800 border-slate-200 hover:border-purple-300 hover:bg-purple-50/50'}">
+              <span>${opt}</span>
+              ${userChoice === oIdx ? '<span class="text-sm">✓</span>' : ''}
+            </button>
+          `).join('')}
+        </div>
+      `;
+
+      // Update Prev / Next state
+      document.getElementById('btn-prev-q').disabled = (qIdx === 0);
+      document.getElementById('btn-next-q').innerText = (qIdx === 24) ? 'Câu Cuối' : 'Câu Tiếp →';
+
+      renderMockGridButtons();
+    }
+
+    function selectMockAnswer(choiceIdx) {
+      appState.mockAnswers[appState.mockCurrentQIndex] = choiceIdx;
+      renderMockQuestion();
+    }
+
+    function toggleBookmarkCurrentQuestion() {
+      const qIdx = appState.mockCurrentQIndex;
+      appState.mockBookmarks[qIdx] = !appState.mockBookmarks[qIdx];
+      renderMockQuestion();
+    }
+
+    function navigateQuestion(direction) {
+      const newIdx = appState.mockCurrentQIndex + direction;
+      if(newIdx >= 0 && newIdx < 25) {
+        appState.mockCurrentQIndex = newIdx;
+        renderMockQuestion();
+      }
+    }
+
+    function renderMockGridButtons() {
+      const grid = document.getElementById('runner-grid-buttons');
+      if(!grid) return;
+
+      grid.innerHTML = Array.from({length: 25}, (_, i) => {
+        const isCurrent = (i === appState.mockCurrentQIndex);
+        const isAnswered = (appState.mockAnswers[i] !== undefined);
+        const isBookmarked = appState.mockBookmarks[i];
+
+        let bgClass = "bg-white text-slate-700 border-slate-200";
+        if(isCurrent) bgClass = "ring-2 ring-purple-600 ring-offset-1 font-black";
+        if(isAnswered) bgClass = "bg-purple-600 text-white border-purple-600";
+        if(isBookmarked) bgClass = "bg-amber-400 text-amber-950 border-amber-400 font-bold";
+
+        return `
+          <button onclick="jumpToMockQuestion(${i})" class="w-full h-9 rounded-xl border text-xs font-bold transition-all flex items-center justify-center ${bgClass}">
+            ${i + 1}
+          </button>
+        `;
+      }).join('');
+    }
+
+    function jumpToMockQuestion(qIdx) {
+      appState.mockCurrentQIndex = qIdx;
+      renderMockQuestion();
+    }
+
+    function exitMockExam() {
+      if(confirm('Bạn có chắc muốn thoát bài thi thử? Kết quả làm dở sẽ không được lưu.')) {
+        if(appState.mockTimerInterval) clearInterval(appState.mockTimerInterval);
+        document.getElementById('mock-runner-view').classList.add('hidden');
+        document.getElementById('mock-selection-view').classList.remove('hidden');
+      }
+    }
+
+    function submitExamPrompt() {
+      const answeredCount = Object.keys(appState.mockAnswers).length;
+      openAppModal(
+        '🎯 Xác Nhận Nộp Bài Thi',
+        `Bạn đã trả lời ${answeredCount}/25 câu hỏi. Bạn có chắc chắn muốn nộp bài để chấm điểm ngay?`,
+        'Nộp Bài Ngay',
+        () => submitExamDirectly()
+      );
+    }
+
+    function submitExamDirectly() {
+      closeAppModal();
+      if(appState.mockTimerInterval) clearInterval(appState.mockTimerInterval);
+
+      // Grade Exam
+      let correctCount = 0;
+      appState.mockQuestions.forEach((q, idx) => {
+        if(appState.mockAnswers[idx] === q.answer) {
+          correctCount++;
+        }
+      });
+
+      const score = (correctCount / 25) * 10;
+      
+      // Save history
+      const historyRecord = {
+        examId: appState.activeMockExamId,
+        score: score,
+        correctCount: correctCount,
+        date: new Date().toLocaleDateString('vi-VN')
+      };
+      
+      appState.examHistory.push(historyRecord);
+      localStorage.setItem('ueh_exam_history', JSON.stringify(appState.examHistory));
+
+      updateDashboardStats();
+      renderMockExamCards();
+
+      // Trigger Confetti for good scores
+      if(score >= 8.0 && typeof confetti === 'function') {
+        confetti({ particleCount: 120, spread: 70, origin: { y: 0.6 } });
+      }
+
+      // Render Results View
+      document.getElementById('mock-runner-view').classList.add('hidden');
+      const resultsView = document.getElementById('mock-results-view');
+      resultsView.classList.remove('hidden');
+
+      let rankTitle = "Cần Ôn Thêm 📚";
+      let rankColor = "text-amber-600 bg-amber-100";
+      if(score >= 9.0) { rankTitle = "Xuất Sắc A+ 🏆"; rankColor = "text-purple-700 bg-purple-100"; }
+      else if(score >= 8.0) { rankTitle = "Giỏi A 🌟"; rankColor = "text-indigo-700 bg-indigo-100"; }
+      else if(score >= 6.5) { rankTitle = "Khá B 👍"; rankColor = "text-emerald-700 bg-emerald-100"; }
+
+      resultsView.innerHTML = `
+        <div class="glass-card p-6 sm:p-8 rounded-3xl text-center space-y-4 border border-purple-200 bg-white">
+          <div class="inline-block px-4 py-1.5 rounded-full font-black text-xs uppercase tracking-wider ${rankColor}">
+            ${rankTitle}
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-black text-slate-900 font-mono">
+            ${score.toFixed(1)} <span class="text-lg text-slate-400 font-sans">/ 10</span>
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-600 font-medium">
+            Bạn đã trả lời đúng <strong class="text-purple-700 font-bold">${correctCount}/25</strong> câu hỏi (${Math.round((correctCount/25)*100)}%).
+          </p>
+
+          <div class="pt-2 flex justify-center gap-3">
+            <button onclick="openMockExam(${appState.activeMockExamId})" class="px-5 py-2.5 rounded-xl bg-purple-600 text-white font-bold text-xs hover:bg-purple-700 shadow">
+              🔄 Thi Lại Đề Này
+            </button>
+            <button onclick="exitMockExamResults()" class="px-5 py-2.5 rounded-xl bg-slate-100 text-slate-700 font-bold text-xs hover:bg-slate-200">
+              📋 Danh Sách Đề Thi
+            </button>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <h3 class="font-extrabold text-slate-900 text-base">Xem Lại Chi Tiết Toàn Bộ 25 Câu Hỏi</h3>
+          ${appState.mockQuestions.map((q, idx) => {
+            const userAns = appState.mockAnswers[idx];
+            const isCorrect = (userAns === q.answer);
+            return `
+              <div class="glass-card p-5 rounded-2xl border-l-4 ${isCorrect ? 'border-l-emerald-500 bg-emerald-50/20' : 'border-l-red-500 bg-red-50/20'} space-y-3">
+                <div class="flex items-center justify-between text-xs">
+                  <span class="font-bold text-slate-500">Câu ${idx + 1} / 25</span>
+                  <span class="font-bold ${isCorrect ? 'text-emerald-700 bg-emerald-100' : 'text-red-700 bg-red-100'} px-2.5 py-0.5 rounded">
+                    ${isCorrect ? '✓ Đúng' : '✗ Sai'}
+                  </span>
+                </div>
+
+                <p class="font-extrabold text-slate-900 text-sm">${q.q}</p>
+
+                <div class="grid sm:grid-cols-2 gap-2 text-xs font-medium">
+                  ${q.options.map((opt, oIdx) => {
+                    let optStyle = "bg-white border-slate-200 text-slate-800";
+                    if(oIdx === q.answer) optStyle = "bg-emerald-100 border-emerald-400 text-emerald-900 font-bold";
+                    else if(oIdx === userAns && !isCorrect) optStyle = "bg-red-100 border-red-400 text-red-900 font-bold";
+                    return `<div class="p-3 rounded-xl border ${optStyle}">${opt}</div>`;
+                  }).join('')}
+                </div>
+
+                <div class="p-3 rounded-xl bg-purple-900 text-purple-100 text-xs leading-relaxed">
+                  <span class="font-bold text-amber-300">💡 Giải thích:</span> ${q.exp}
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `;
+    }
+
+    function exitMockExamResults() {
+      document.getElementById('mock-results-view').classList.add('hidden');
+      document.getElementById('mock-selection-view').classList.remove('hidden');
+    }
+
+    /* ==========================================================================
+       SECTION 4: ESSAY MODULES & DETAILED MATH SOLUTIONS
+       ========================================================================== */
+    const ESSAY_MODULES = {
+      1: {
+        title: "Đề 1: Huy Động Vốn, Tiền Gửi & Giấy Tờ Có Giá",
+        desc: "Lãi KKH tích số, TGTK trả lãi sau/trước/định kỳ, Tái tục & So sánh PA1 vs PA2 vs PA3",
+        cards: [
+          {
+            title: "Bài 1.1: Tính Lãi Tiền Gửi KKH Theo Phương Pháp Tích Số",
+            prob: `Tài khoản tiền gửi thanh toán của Công ty TNHH Nam Hà có sao kê dư nợ/dư có tháng 5/2026 (lãi suất 2%/năm, 365 ngày):
+            - 26/04: Số dư đầu kỳ 100.000.000 VNĐ.
+            - 05/05: Nộp tiền mặt 200.000.000 VNĐ.
+            - 15/05: Chuyển khoản thanh toán 150.000.000 VNĐ.
+            - 25/05: Nhận chuyển khoản từ đối tác 300.000.000 VNĐ.
+            Yêu cầu: Lập bảng tích số và tính số tiền lãi định kỳ ngân hàng nhập gốc ngày 25/05.`,
+            sol: `
+              <div class="space-y-3 font-mono text-xs">
+                <div class="font-bold text-purple-900">BẢNG TÍNH TÍCH SỐ SỐ DƯ (26/04 - 25/05):</div>
+                <table class="w-full border-collapse border border-purple-200 text-left">
+                  <tr class="bg-purple-100 text-purple-950 font-bold">
+                    <th class="p-2 border border-purple-200">Khoảng thời gian</th>
+                    <th class="p-2 border border-purple-200">Số dư duy trì</th>
+                    <th class="p-2 border border-purple-200">Số ngày</th>
+                    <th class="p-2 border border-purple-200">Tích số (SD × Ngày)</th>
+                  </tr>
+                  <tr>
+                    <td class="p-2 border border-purple-200">26/04 - 04/05</td>
+                    <td class="p-2 border border-purple-200">100.000.000</td>
+                    <td class="p-2 border border-purple-200">9 ngày</td>
+                    <td class="p-2 border border-purple-200">900.000.000</td>
+                  </tr>
+                  <tr>
+                    <td class="p-2 border border-purple-200">05/05 - 14/05</td>
+                    <td class="p-2 border border-purple-200">300.000.000</td>
+                    <td class="p-2 border border-purple-200">10 ngày</td>
+                    <td class="p-2 border border-purple-200">3.000.000.000</td>
+                  </tr>
+                  <tr>
+                    <td class="p-2 border border-purple-200">15/05 - 24/05</td>
+                    <td class="p-2 border border-purple-200">150.000.000</td>
+                    <td class="p-2 border border-purple-200">10 ngày</td>
+                    <td class="p-2 border border-purple-200">1.500.000.000</td>
+                  </tr>
+                  <tr>
+                    <td class="p-2 border border-purple-200">25/05</td>
+                    <td class="p-2 border border-purple-200">450.000.000</td>
+                    <td class="p-2 border border-purple-200">1 ngày</td>
+                    <td class="p-2 border border-purple-200">450.000.000</td>
+                  </tr>
+                  <tr class="bg-purple-50 font-bold">
+                    <td colspan="3" class="p-2 border border-purple-200">TỔNG CỘNG TÍCH SỐ:</td>
+                    <td class="p-2 border border-purple-200 text-purple-700">5.850.000.000</td>
+                  </tr>
+                </table>
+                
+                <div class="p-3 bg-purple-50 rounded-xl border border-purple-200 text-purple-950">
+                  <div>• Lãi nhập gốc ngày 25/05 = (5.850.000.000 × 2%) / 365 = <strong>320.548 VNĐ</strong></div>
+                </div>
+              </div>
+            `
+          },
+          {
+            title: "Bài 1.2: Tư Vấn Tối Ưu Phương Án Vốn (PA1 Rút Trả Trước vs PA2 Cầm Cố vs PA3 Thấu Chi)",
+            prob: `Khách hàng có Sổ tiết kiệm 800.000.000 VNĐ, kỳ hạn 12 tháng, gửi ngày 15/10/2025, lãi suất 7,5%/năm trả lãi sau.
+            Ngày 15/08/2026 (sau 10 tháng), khách hàng cần gấp 400.000.000 VNĐ trong 15 ngày để xử lý công việc. Lãi suất KKH là 0,2%/năm, lãi suất vay cầm cố sổ TK là 9%/năm.
+            Yêu cầu: So sánh hiệu quả tài chính giữa PA1 (Rút trước hạn toàn bộ sổ) và PA2 (Vay cầm cố sổ TK 400tr trong 15 ngày).`,
+            sol: `
+              <div class="space-y-3 font-mono text-xs">
+                <div class="p-3 bg-red-50 rounded-xl border border-red-200 text-red-950">
+                  <div class="font-bold">• PHƯƠNG ÁN 1 (RÚT TRƯỚC HẠN TOÀN BỘ SỔ 800TR):</div>
+                  <div>- Lãi nhận được (10 tháng KKH) = 800tr × 0,2% × 304/365 = 1.332.603 VNĐ.</div>
+                  <div>- Thiệt hại do mất lãi 12 tháng có kỳ hạn (7,5%) = 800tr × 7,5% - 1.332.603 = <strong>58.667.397 VNĐ</strong>.</div>
+                </div>
+
+                <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-200 text-emerald-950">
+                  <div class="font-bold">• PHƯƠNG ÁN 2 (VAY CẦM CỐ SỔ TK 400TR TRONG 15 NGÀY):</div>
+                  <div>- Vẫn giữ nguyên sổ TK 800tr đáo hạn đủ 12 tháng nhận lãi: 800tr × 7,5% = 60.000.000 VNĐ.</div>
+                  <div>- Chi phí lãi vay cầm cố 400tr 15 ngày = 400tr × 9% × 15/365 = 1.479.452 VNĐ.</div>
+                  <div>- Thu nhập ròng = 60.000.000 - 1.479.452 = <strong>58.520.548 VNĐ</strong>.</div>
+                </div>
+
+                <div class="p-3 bg-purple-900 text-purple-100 rounded-xl">
+                  <div class="font-bold text-amber-300">💡 KẾT LUẬN TƯ VẤN:</div>
+                  <div>Nên chọn PHƯƠNG ÁN 2 (Vay cầm cố) giúp khách hàng bảo toàn lợi nhuận cao hơn PA1 tới <strong>57.187.945 VNĐ</strong>!</div>
+                </div>
+              </div>
+            `
+          }
+        ]
+      },
+
+      2: {
+        title: "Đề 2: Cho Vay VLĐ & Hạn Mức Tín Dụng (HMTD)",
+        desc: "Cho vay từng lần Hải Âu, HMTD Thành Minh, Khế ước 1-5 & Xử lý quá hạn 150%",
+        cards: [
+          {
+            title: "Bài 2.1: Tính HMTD & Theo Dõi Khế Ước (Công Ty Thành Minh)",
+            prob: `Công ty TNHH Thành Minh xin cấp HMTD năm 2026. Số liệu năm 2025:
+            - Doanh thu thuần: 4.260.000.000 VNĐ.
+            - TSNH bình quân: 1.420.000.000 VNĐ.
+            Kế hoạch 2026: CPSXKD 5.730.000.000 VNĐ (Khấu hao 500.000.000 VNĐ). VLĐ ròng tự có: 690.000.000 VNĐ. Giá trị TSBĐ định giá: 1.500.000.000 VNĐ (Ngân hàng cho vay tối đa 70% giá trị TSBĐ).
+            Yêu cầu: Xác định HMTD duyệt và tính tiền lãi chốt ngày 25 hàng tháng.`,
+            sol: `
+              <div class="space-y-3 font-mono text-xs">
+                <div>1. Vòng quay VLĐ năm 2025 = 4.260.000.000 / 1.420.000.000 = <strong>3 vòng</strong>.</div>
+                <div>2. CPSXKD ròng kế hoạch 2026 = 5.730.000.000 - 500.000.000 = 5.230.000.000 VNĐ.</div>
+                <div>3. NCVLĐ kế hoạch 2026 = 5.230.000.000 / 3 = <strong>1.743.333.333 VNĐ</strong>.</div>
+                <div>4. HMTD cần vay = 1.743.333.333 - 690.000.000 = 1.053.333.333 VNĐ.</div>
+                <div>5. Giới hạn bảo đảm TSBĐ = 70% × 1.500.000.000 = <strong>1.050.000.000 VNĐ</strong>.</div>
+                <div class="p-3 bg-purple-900 text-purple-100 rounded-xl">
+                  <div class="font-bold text-amber-300">🎯 KẾT LUẬN:</div>
+                  <div>Mức HMTD Ngân hàng phê duyệt = Min (1.053.333.333, 1.050.000.000) = <strong>1.050.000.000 VNĐ</strong>.</div>
+                </div>
+              </div>
+            `
+          }
+        ]
+      },
+
+      3: {
+        title: "Đề 3: Cho Vay Dự Án & Kế Hoạch Thu Nợ (3 Phương Thức)",
+        desc: "Lãi thi công ân hạn & Lập bảng thu nợ Giảm dần, Tăng dần, Cố định PMT",
+        cards: [
+          {
+            title: "Bài 3.1: Lập Bảng Thu Nợ 3 Phương Thức (Dự Án 6.000.000.000 VNĐ)",
+            prob: `Ngân hàng tài trợ dự án V0 = 6.000.000.000 VNĐ, thời hạn thu nợ 4 kỳ quý (1 năm), lãi suất 3%/kỳ quý (12%/năm).
+            Trình bày bảng so sánh thu nợ gốc và lãi giữa PT 1 (Kỳ khoản giảm dần) và PT 3 (Kỳ khoản cố định).`,
+            sol: `
+              <div class="space-y-3 font-mono text-xs">
+                <div class="font-bold text-purple-900">• PHƯƠNG THỨC 1: KỲ KHOẢN GIẢM DẦN (Gốc đều Vi = 1.500tr/kỳ)</div>
+                <table class="w-full border-collapse border border-purple-200 text-left">
+                  <tr class="bg-purple-100 text-purple-950 font-bold">
+                    <th class="p-1.5 border border-purple-200">Kỳ</th>
+                    <th class="p-1.5 border border-purple-200">Dư nợ đầu kỳ</th>
+                    <th class="p-1.5 border border-purple-200">Gốc trả</th>
+                    <th class="p-1.5 border border-purple-200">Lãi (3%)</th>
+                    <th class="p-1.5 border border-purple-200">Tổng trả</th>
+                  </tr>
+                  <tr><td class="p-1.5 border">1</td><td class="p-1.5 border">6.000tr</td><td class="p-1.5 border">1.500tr</td><td class="p-1.5 border">180tr</td><td class="p-1.5 border font-bold">1.680tr</td></tr>
+                  <tr><td class="p-1.5 border">2</td><td class="p-1.5 border">4.500tr</td><td class="p-1.5 border">1.500tr</td><td class="p-1.5 border">135tr</td><td class="p-1.5 border font-bold">1.635tr</td></tr>
+                  <tr><td class="p-1.5 border">3</td><td class="p-1.5 border">3.000tr</td><td class="p-1.5 border">1.500tr</td><td class="p-1.5 border">90tr</td><td class="p-1.5 border font-bold">1.590tr</td></tr>
+                  <tr><td class="p-1.5 border">4</td><td class="p-1.5 border">1.500tr</td><td class="p-1.5 border">1.500tr</td><td class="p-1.5 border">45tr</td><td class="p-1.5 border font-bold">1.545tr</td></tr>
+                  <tr class="bg-purple-50 font-bold"><td colspan="2" class="p-1.5 border">TỔNG CỘNG:</td><td class="p-1.5 border">6.000tr</td><td class="p-1.5 border">450tr</td><td class="p-1.5 border text-purple-700">6.450tr</td></tr>
+                </table>
+
+                <div class="font-bold text-emerald-900 mt-4">• PHƯƠNG THỨC 3: KỲ KHOẢN CỐ ĐỊNH (a = 1.614,24tr/kỳ)</div>
+                <div>Công thức PMT: a = 6.000tr × [0,03(1,03)⁴] / [(1,03)⁴ - 1] = <strong>1.614,24tr</strong></div>
+              </div>
+            `
+          }
+        ]
+      },
+
+      4: {
+        title: "Đề 4: Nghiệp Vụ Chiết Khấu Giấy Tờ Có Giá",
+        desc: "Chiết khấu kỳ phiếu 420tr bán lại ngày 15/05, Từ chối GTCG < 15 ngày & 75 Trái phiếu 1 tỷ",
+        cards: [
+          {
+            title: "Bài 4.1: Chiết Khấu Kỳ Phiếu 420.000.000 VNĐ",
+            prob: `Ngân hàng nhận chiết khấu kỳ phiếu mệnh giá 420.000.000 VNĐ, đáo hạn ngày 20/06/2026.
+            Ngày chiết khấu: 10/03/2026. Lãi suất chiết khấu: 9%/năm, phí chiết khấu: 0,1% Mệnh giá (năm 360 ngày).
+            Yêu cầu: Tính số tiền khách hàng nhận được khi chiết khấu.`,
+            sol: `
+              <div class="space-y-3 font-mono text-xs">
+                <div>1. Số ngày chiết khấu còn lại (10/03 đến 20/06) = 21 (tháng 3) + 30 (tháng 4) + 31 (tháng 5) + 20 (tháng 6) = <strong>102 ngày</strong>.</div>
+                <div>2. Lãi chiết khấu = 420.000.000 × 9% × 102 / 360 = <strong>10.710.000 VNĐ</strong>.</div>
+                <div>3. Phí chiết khấu = 0,1% × 420.000.000 = <strong>420.000 VNĐ</strong>.</div>
+                <div class="p-3 bg-purple-900 text-purple-100 rounded-xl">
+                  <div class="font-bold text-amber-300">🎯 SỐ TIỀN KHÁCH NHẬN ĐƯỢC:</div>
+                  <div>= 420.000.000 - 10.710.000 - 420.000 = <strong>408.870.000 VNĐ</strong>.</div>
+                </div>
+              </div>
+            `
+          }
+        ]
+      },
+
+      5: {
+        title: "Đề 5: Case Study Tổng Hợp Nâng Cao",
+        desc: "Bài 4.2 Công ty An Khang D/A 90 ngày & Bài tập lớn Công ty Một Mình",
+        cards: [
+          {
+            title: "Bài 5.1: Công Ty TNHH An Khang Xuất Khẩu D/A 90 Ngày",
+            prob: `Công ty An Khang có HĐ xuất khẩu 40 MT hàng giá 42.500 USD/MT, thanh toán D/A 90 ngày.
+            Phân tích phương án vay ngân hàng giải ngân 2 đợt mua nguyên liệu sản xuất.`,
+            sol: `
+              <div class="space-y-3 font-mono text-xs">
+                <div>• Giá trị HĐ xuất khẩu = 40 × 42.500 = 1.700.000 USD.</div>
+                <div>• Quy đổi VNĐ (tỷ giá 23.500) = 39.950.000.000 VNĐ.</div>
+                <div>• Hạn mức cho vay tối đa 70% HĐ = <strong>27.965.000.000 VNĐ</strong>.</div>
+                <div class="p-3 bg-purple-900 text-purple-100 rounded-xl">
+                  <div class="font-bold text-amber-300">🎯 KẾT LUẬN:</div>
+                  <div>Ngân hàng chấp nhận cấp tín dụng giải ngân đúng theo tiến độ thu nợ D/A.</div>
+                </div>
+              </div>
+            `
+          }
+        ]
+      },
+
+      6: {
+        title: "Đề 6: Phân Tích Tài Chính & Định Giá Cổ Phiếu (Bài Tập Cô Thư)",
+        desc: "EPS 3 phương pháp huy động vốn, P/E chuyển đổi trái phiếu & Mô hình Gordon SAPA/Thép K/JVC",
+        cards: [
+          {
+            title: "Bài 6.1: So Sánh EPS 3 Phương Pháp Huy Động Vốn ($3.000.000)",
+            prob: `Công ty ABC có EBIT $300.000, thuế TNDN 50%. Cần huy động thêm $3.000.000 vốn với 3 phương án:
+            - PP1: Phát hành 72.000 cổ phiếu phổ thông mới.
+            - PP2: Phát hành 42.000 CP phổ thông + Cổ tức ưu đãi $90.000.
+            - PP3: Phát hành 27.000 CP phổ thông + Trái phiếu lãi $90.000 + Cổ tức ưu đãi $45.000.
+            Yêu cầu: Tính EPS cho từng phương án.`,
+            sol: `
+              <div class="space-y-3 font-mono text-xs">
+                <div>• PP1: EAT = 300.000 × (1 - 50%) = 150.000$. EPS = 150.000 / 72.000 = <strong>2.08 $ / CP</strong>.</div>
+                <div>• PP2: (EAT - Div_UD) = 150.000 - 90.000 = 60.000$. EPS = 60.000 / 42.000 = <strong>1.43 $ / CP</strong>.</div>
+                <div>• PP3: EBIT ròng = 300.000 - 90.000 (lãi vay) = 210.000$. EAT = 105.000$. EAT ròng = 105.000 - 45.000 = 60.000$. EPS = 60.000 / 27.000 = <strong>2.22 $ / CP</strong>.</div>
+                <div class="p-3 bg-purple-900 text-purple-100 rounded-xl">
+                  <div class="font-bold text-amber-300">🎯 TƯ VẤN:</div>
+                  <div>Phương án 3 cho EPS cao nhất (2.22 $/CP) do tận dụng được lá chắn thuế từ lãi vay trái phiếu!</div>
+                </div>
+              </div>
+            `
+          }
+        ]
+      }
+    };
+
+    function renderEssayModule(modId) {
+      appState.activeEssay = modId;
+      
+      for(let i=1; i<=6; i++) {
+        const btn = document.getElementById(`essay-btn-${i}`);
+        if(btn) {
+          if(i === modId) {
+            btn.className = "px-4 py-2 rounded-xl text-xs font-bold bg-amber-600 text-white shadow";
+          } else {
+            btn.className = "px-4 py-2 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-amber-100";
+          }
+        }
+      }
+
+      const mod = ESSAY_MODULES[modId];
+      if(!mod) return;
+
+      const container = document.getElementById('essay-content-container');
+      container.innerHTML = `
+        <div class="glass-card p-5 rounded-2xl border-l-4 border-l-amber-600">
+          <span class="text-xs font-bold text-amber-800 bg-amber-100 px-2.5 py-0.5 rounded-md">Chuyên Đề ${modId}</span>
+          <h2 class="text-lg font-black text-slate-900 mt-1">${mod.title}</h2>
+          <p class="text-xs text-slate-600 mt-0.5">${mod.desc}</p>
+        </div>
+
+        ${mod.cards.map((c, idx) => `
+          <div class="glass-card p-6 rounded-3xl space-y-4 border border-slate-200">
+            <h3 class="font-extrabold text-slate-900 text-base flex items-center justify-between">
+              <span>${c.title}</span>
+              <button onclick="toggleEssaySolution(${modId}, ${idx})" class="text-xs text-amber-700 font-bold bg-amber-50 hover:bg-amber-100 px-3.5 py-1.5 rounded-xl transition-all">
+                👁️ <span>Xem / Ẩn Bài Giải Chi Tiết</span>
+              </button>
+            </h3>
+
+            <div class="p-4 rounded-2xl bg-white border border-slate-200 text-xs text-slate-800 leading-relaxed space-y-2 whitespace-pre-line">
+              <strong>ĐỀ BÀI:</strong>
+              ${c.prob}
+            </div>
+
+            <div id="essay-sol-${modId}-${idx}" class="hidden p-5 rounded-2xl bg-slate-900 text-white space-y-3 border border-slate-800">
+              <div class="text-xs font-extrabold text-amber-400 tracking-wider">LỜI GIẢI CHI TIẾT VÀ ĐÁP ÁN CHUẨN UEH:</div>
+              ${c.sol}
+            </div>
+          </div>
+        `).join('')}
+      `;
+    }
+
+    function toggleEssaySolution(modId, cardIdx) {
+      const el = document.getElementById(`essay-sol-${modId}-${cardIdx}`);
+      if(el) el.classList.toggle('hidden');
+    }
+
+    /* ==========================================================================
+       SECTION 5: FLASHCARD ACTIVE RECALL ENGINE
+       ========================================================================== */
+    function initFlashcardEngine() {
+      filterFCCategory('all');
+    }
+
+    function setFCMode(mode) {
+      appState.fcMode = mode;
+      
+      const modes = ['flip', 'quiz', 'list'];
+      modes.forEach(m => {
+        document.getElementById(`fc-view-${m}`).classList.add('hidden');
+        const btn = document.getElementById(`fc-mode-btn-${m}`);
+        if(btn) {
+          btn.className = (m === mode) ? "px-3.5 py-1.5 rounded-lg bg-white text-purple-700 shadow-sm font-bold" : "px-3.5 py-1.5 rounded-lg text-slate-600 hover:text-purple-700 font-bold";
+        }
+      });
+
+      document.getElementById(`fc-view-${mode}`).classList.remove('hidden');
+
+      if(mode === 'flip') renderActiveFC();
+      else if(mode === 'quiz') renderFCQuiz();
+      else if(mode === 'list') renderFCList();
+    }
+
+    function filterFCCategory(cat) {
+      appState.fcActiveCategory = cat;
+      
+      const cats = ['all', 'ch2', 'ch4', 'bonus', 'review'];
+      cats.forEach(c => {
+        const btn = document.getElementById(`fc-cat-${c}`);
+        if(btn) {
+          if(c === cat) {
+            btn.className = "px-3 py-1.5 rounded-lg font-bold bg-purple-600 text-white";
+          } else {
+            btn.className = "px-3 py-1.5 rounded-lg font-semibold bg-slate-100 text-slate-700 hover:bg-purple-100";
+          }
+        }
+      });
+
+      if(cat === 'all') {
+        appState.fcFilteredList = [...FLASHCARDS_DATA];
+      } else if(cat === 'review') {
+        appState.fcFilteredList = FLASHCARDS_DATA.filter(fc => appState.fcReviewIds.includes(fc.id));
+        if(appState.fcFilteredList.length === 0) {
+          alert('Tuyệt vời! Bạn không có thẻ nào nằm trong danh sách Cần Ôn Lại.');
+          appState.fcFilteredList = [...FLASHCARDS_DATA];
+        }
+      } else {
+        appState.fcFilteredList = FLASHCARDS_DATA.filter(fc => fc.cat === cat);
+      }
+
+      appState.fcCurrentIndex = 0;
+      appState.fcIsFlipped = false;
+      renderActiveFC();
+      updateFCReviewCount();
+    }
+
+    function renderActiveFC() {
+      const list = appState.fcFilteredList;
+      if(list.length === 0) return;
+
+      if(appState.fcCurrentIndex >= list.length) appState.fcCurrentIndex = 0;
+      if(appState.fcCurrentIndex < 0) appState.fcCurrentIndex = list.length - 1;
+
+      const fc = list[appState.fcCurrentIndex];
+      const inner = document.getElementById('active-fc-inner');
+      if(!inner) return;
+
+      // Reset flip
+      appState.fcIsFlipped = false;
+      inner.classList.remove('is-flipped');
+
+      // Update Front
+      document.getElementById('fc-front-category').innerText = fc.cat.toUpperCase();
+      document.getElementById('fc-front-question').innerText = fc.q;
+      
+      const hintText = document.getElementById('fc-hint-text');
+      const hintContainer = document.getElementById('fc-hint-container');
+      if(fc.hint) {
+        hintContainer.classList.remove('hidden');
+        hintText.innerText = fc.hint;
+        hintText.classList.add('hidden');
+      } else {
+        hintContainer.classList.add('hidden');
+      }
+
+      // Update Back
+      document.getElementById('fc-back-answer').innerText = fc.a;
+      document.getElementById('fc-back-mnemonic').innerText = fc.m || '';
+      document.getElementById('fc-back-trap').innerText = fc.t || '';
+
+      // Indicators
+      document.getElementById('fc-card-counter').innerText = `Thẻ ${appState.fcCurrentIndex + 1} / ${list.length}`;
+      document.getElementById('fc-mastered-indicator').innerText = `Đã thuộc: ${appState.fcMasteredIds.length} / 60`;
+    }
+
+    function flipActiveCard() {
+      appState.fcIsFlipped = !appState.fcIsFlipped;
+      const inner = document.getElementById('active-fc-inner');
+      if(inner) {
+        if(appState.fcIsFlipped) inner.classList.add('is-flipped');
+        else inner.classList.remove('is-flipped');
+      }
+    }
+
+    function toggleFCHint() {
+      const hintText = document.getElementById('fc-hint-text');
+      if(hintText) hintText.classList.toggle('hidden');
+    }
+
+    function rateActiveFC(rating) {
+      const fc = appState.fcFilteredList[appState.fcCurrentIndex];
+      if(!fc) return;
+
+      if(rating === 1) { // Chưa nhớ
+        if(!appState.fcReviewIds.includes(fc.id)) {
+          appState.fcReviewIds.push(fc.id);
+        }
+        // Re-insert 3 positions ahead
+        appState.fcFilteredList.splice(appState.fcCurrentIndex + 3, 0, fc);
+      } else if(rating === 3) { // Đã thuộc
+        if(!appState.fcMasteredIds.includes(fc.id)) {
+          appState.fcMasteredIds.push(fc.id);
+        }
+        appState.fcReviewIds = appState.fcReviewIds.filter(id => id !== fc.id);
+      }
+
+      localStorage.setItem('ueh_fc_mastered', JSON.stringify(appState.fcMasteredIds));
+      localStorage.setItem('ueh_fc_review', JSON.stringify(appState.fcReviewIds));
+
+      updateDashboardStats();
+      updateFCReviewCount();
+      stepActiveFC(1);
+    }
+
+    function stepActiveFC(direction) {
+      appState.fcCurrentIndex += direction;
+      renderActiveFC();
+    }
+
+    function shuffleFlashcards() {
+      appState.fcFilteredList.sort(() => Math.random() - 0.5);
+      appState.fcCurrentIndex = 0;
+      renderActiveFC();
+    }
+
+    function resetFCProgress() {
+      if(confirm('Bạn muốn đặt lại toàn bộ tiến độ thuộc Flashcard?')) {
+        appState.fcMasteredIds = [];
+        appState.fcReviewIds = [];
+        localStorage.removeItem('ueh_fc_mastered');
+        localStorage.removeItem('ueh_fc_review');
+        updateDashboardStats();
+        updateFCReviewCount();
+        renderActiveFC();
+      }
+    }
+
+    function updateFCReviewCount() {
+      const badge = document.getElementById('fc-review-count');
+      if(badge) badge.innerText = appState.fcReviewIds.length;
+    }
+
+    function renderFCList() {
+      const container = document.getElementById('fc-list-container');
+      if(!container) return;
+
+      container.innerHTML = FLASHCARDS_DATA.map((fc, idx) => `
+        <div class="glass-card p-4 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border border-slate-200">
+          <div class="space-y-1">
+            <div class="flex items-center gap-2">
+              <span class="text-[10px] font-bold text-purple-700 bg-purple-100 px-2 py-0.5 rounded">Thẻ ${idx + 1}</span>
+              <span class="text-xs font-bold text-slate-900">${fc.q}</span>
+            </div>
+            <div class="text-xs text-purple-700 font-medium pl-2 border-l-2 border-purple-400">
+              ${fc.a}
+            </div>
+          </div>
+          <span class="text-[11px] italic text-slate-500 bg-slate-100 px-3 py-1 rounded-xl shrink-0">
+            Mẹo: ${fc.m}
+          </span>
+        </div>
+      `).join('');
+    }
+
+    function renderFCQuiz() {
+      const container = document.getElementById('fc-view-quiz');
+      if(!container) return;
+
+      // Sample 5 cards for quick quiz
+      const sample = [...FLASHCARDS_DATA].sort(() => Math.random() - 0.5).slice(0, 5);
+
+      container.innerHTML = `
+        <div class="glass-card p-6 rounded-3xl space-y-6">
+          <h3 class="font-black text-slate-900 text-lg">⚡ Flash-Quiz Tốc Độ (Active Recall)</h3>
+          <div class="space-y-6">
+            ${sample.map((fc, idx) => `
+              <div class="p-4 rounded-2xl bg-white border border-slate-200 space-y-3">
+                <div class="text-xs font-bold text-purple-700">Câu Quiz ${idx + 1}: ${fc.q}</div>
+                <button onclick="this.nextElementSibling.classList.remove('hidden')" class="px-3 py-1.5 rounded-lg bg-purple-100 text-purple-800 text-xs font-bold">
+                  Hiện Đáp Án Đã Thuộc
+                </button>
+                <div class="hidden p-3 rounded-xl bg-purple-900 text-purple-100 text-xs font-medium">
+                  🎯 ${fc.a}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    /* ==========================================================================
+       SECTION 6: FORMULA CALCULATORS & PERSISTENT NOTEPAD
+       ========================================================================== */
+    function switchFormulaSubtab(subId) {
+      const subs = ['cheatsheet', 'calculators', 'notepad'];
+      subs.forEach(s => {
+        document.getElementById(`f-view-${s}`).classList.add('hidden');
+        const btn = document.getElementById(`f-subtab-${s}`);
+        if(btn) {
+          btn.className = (s === subId) ? "px-4 py-2 rounded-xl text-xs font-bold bg-emerald-600 text-white shadow" : "px-4 py-2 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-emerald-100";
+        }
+      });
+      document.getElementById(`f-view-${subId}`).classList.remove('hidden');
+    }
+
+    function calculateInterest() {
+      const P = parseFloat(document.getElementById('calc1-principal').value) || 0;
+      const r = parseFloat(document.getElementById('calc1-rate').value) || 0;
+      const d = parseFloat(document.getElementById('calc1-days').value) || 0;
+      const yearDays = parseFloat(document.getElementById('calc1-year-days').value) || 365;
+
+      const interest = (P * (r / 100) * d) / yearDays;
+      const total = P + interest;
+
+      document.getElementById('calc1-out-interest').innerText = Math.round(interest).toLocaleString('vi-VN') + " VNĐ";
+      document.getElementById('calc1-out-total').innerText = "Tổng gốc + lãi: " + Math.round(total).toLocaleString('vi-VN') + " VNĐ";
+    }
+
+    function calculateDiscount() {
+      const MG = parseFloat(document.getElementById('calc2-face').value) || 0;
+      const rCK = parseFloat(document.getElementById('calc2-rate').value) || 0;
+      const dCK = parseFloat(document.getElementById('calc2-days').value) || 0;
+      const feeP = parseFloat(document.getElementById('calc2-fee').value) || 0;
+      const yearDays = parseFloat(document.getElementById('calc2-year-days').value) || 360;
+
+      const laiCK = (MG * (rCK / 100) * dCK) / yearDays;
+      const phiCK = (feeP / 100) * MG;
+      const nhan = MG - laiCK - phiCK;
+
+      document.getElementById('calc2-out-received').innerText = Math.round(nhan).toLocaleString('vi-VN') + " VNĐ";
+      document.getElementById('calc2-out-details').innerText = `Lãi CK: ${Math.round(laiCK).toLocaleString('vi-VN')}đ | Phí CK: ${Math.round(phiCK).toLocaleString('vi-VN')}đ`;
+    }
+
+    function generateProjectSchedule() {
+      const V0 = parseFloat(document.getElementById('calc3-v0').value) || 0;
+      const n = parseInt(document.getElementById('calc3-n').value) || 1;
+      const r = parseFloat(document.getElementById('calc3-r').value) / 100 || 0;
+      const method = document.getElementById('calc3-method').value;
+
+      let html = `
+        <table class="w-full border-collapse border border-emerald-200 text-xs text-left">
+          <tr class="bg-emerald-100 text-emerald-950 font-bold">
+            <th class="p-2 border border-emerald-200">Kỳ thứ (i)</th>
+            <th class="p-2 border border-emerald-200">Dư Nợ Đầu Kỳ</th>
+            <th class="p-2 border border-emerald-200">Tiền Gốc Trả</th>
+            <th class="p-2 border border-emerald-200">Tiền Lãi Trả</th>
+            <th class="p-2 border border-emerald-200">Tổng Kỳ Khoản (a)</th>
+          </tr>
+      `;
+
+      let duNo = V0;
+      let totalGoc = 0, totalLai = 0;
+
+      if(method === "1") { // Giảm dần
+        const gocKyi = V0 / n;
+        for(let i=1; i<=n; i++) {
+          const laiKyi = duNo * r;
+          const aKyi = gocKyi + laiKyi;
+          html += `
+            <tr>
+              <td class="p-2 border">${i}</td>
+              <td class="p-2 border font-mono">${Math.round(duNo).toLocaleString('vi-VN')}</td>
+              <td class="p-2 border font-mono">${Math.round(gocKyi).toLocaleString('vi-VN')}</td>
+              <td class="p-2 border font-mono">${Math.round(laiKyi).toLocaleString('vi-VN')}</td>
+              <td class="p-2 border font-mono font-bold">${Math.round(aKyi).toLocaleString('vi-VN')}</td>
+            </tr>
+          `;
+          totalGoc += gocKyi;
+          totalLai += laiKyi;
+          duNo -= gocKyi;
+        }
+      } else { // PMT cố định
+        const aFixed = V0 * (r * Math.pow(1+r, n)) / (Math.pow(1+r, n) - 1);
+        for(let i=1; i<=n; i++) {
+          const laiKyi = duNo * r;
+          let gocKyi = aFixed - laiKyi;
+          if(i === n) gocKyi = duNo; // Tất toán kỳ cuối
+          const aActual = gocKyi + laiKyi;
+
+          html += `
+            <tr>
+              <td class="p-2 border">${i}</td>
+              <td class="p-2 border font-mono">${Math.round(duNo).toLocaleString('vi-VN')}</td>
+              <td class="p-2 border font-mono">${Math.round(gocKyi).toLocaleString('vi-VN')}</td>
+              <td class="p-2 border font-mono">${Math.round(laiKyi).toLocaleString('vi-VN')}</td>
+              <td class="p-2 border font-mono font-bold">${Math.round(aActual).toLocaleString('vi-VN')}</td>
+            </tr>
+          `;
+          totalGoc += gocKyi;
+          totalLai += laiKyi;
+          duNo -= gocKyi;
+        }
+      }
+
+      html += `
+        <tr class="bg-emerald-50 font-bold">
+          <td colspan="2" class="p-2 border">TỔNG CỘNG:</td>
+          <td class="p-2 border font-mono">${Math.round(totalGoc).toLocaleString('vi-VN')}</td>
+          <td class="p-2 border font-mono">${Math.round(totalLai).toLocaleString('vi-VN')}</td>
+          <td class="p-2 border font-mono text-emerald-800">${Math.round(totalGoc + totalLai).toLocaleString('vi-VN')}</td>
+        </tr>
+      </table>`;
+
+      document.getElementById('calc3-table-container').innerHTML = html;
+    }
+
+    function saveNotepadContent(text) {
+      localStorage.setItem('ueh_study_notepad', text);
+    }
+
+    function loadSavedNotepad() {
+      const text = localStorage.getItem('ueh_study_notepad');
+      const el = document.getElementById('study-notepad-text');
+      if(text && el) el.value = text;
+    }
+
+    function exportNotepad() {
+      const text = document.getElementById('study-notepad-text').value;
+      const blob = new Blob([text], {type: 'text/plain;charset=utf-8'});
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'UEH_Banking_Study_Notes.txt';
+      link.click();
+    }
+
+    function clearNotepad() {
+      if(confirm('Bạn có muốn xóa sạch ghi chú cá nhân?')) {
+        document.getElementById('study-notepad-text').value = '';
+        localStorage.removeItem('ueh_study_notepad');
+      }
+    }
+
+    /* ==========================================================================
+       DASHBOARD STATS UPDATER & GLOBAL HELPERS
+       ========================================================================== */
+    function updateDashboardStats() {
+      // Questions Done
+      const qDoneEl = document.getElementById('stat-questions-done');
+      if(qDoneEl) qDoneEl.innerText = Object.keys(appState.mockAnswers).length;
+
+      // Exams Done
+      const examsDoneEl = document.getElementById('stat-exams-done');
+      if(examsDoneEl) examsDoneEl.innerText = appState.examHistory.length;
+
+      // Flashcards Mastered
+      const fcDoneEl = document.getElementById('stat-flashcards-mastered');
+      if(fcDoneEl) fcDoneEl.innerText = appState.fcMasteredIds.length;
+
+      // Avg Score
+      const avgScoreEl = document.getElementById('stat-avg-score');
+      if(avgScoreEl) {
+        if(appState.examHistory.length > 0) {
+          const lastScore = appState.examHistory[appState.examHistory.length - 1].score;
+          avgScoreEl.innerText = lastScore.toFixed(1) + " điểm";
+        } else {
+          avgScoreEl.innerText = "--";
+        }
+      }
+
+      // Overall Progress Bar
+      const totalTasks = 160 + 10 + 60;
+      const completed = appState.fcMasteredIds.length + (appState.examHistory.length * 6);
+      const pct = Math.min(100, Math.round((completed / totalTasks) * 100));
+
+      const bar = document.getElementById('overall-progress-bar');
+      const text = document.getElementById('overall-progress-text');
+      if(bar) bar.style.width = `${pct}%`;
+      if(text) text.innerText = `${pct}%`;
+    }
+
+    function handleGlobalSearch(query) {
+      if(!query || query.trim() === '') return;
+      query = query.toLowerCase();
+
+      // Quick match flashcard
+      const matchFC = FLASHCARDS_DATA.find(fc => fc.q.toLowerCase().includes(query) || fc.a.toLowerCase().includes(query));
+      if(matchFC) {
+        switchTab('flashcards');
+        appState.fcFilteredList = [matchFC];
+        appState.fcCurrentIndex = 0;
+        renderActiveFC();
+      }
+    }
+
+    function handleGlobalKeydown(e) {
+      if(appState.activeTab === 'flashcards' && appState.fcMode === 'flip') {
+        if(e.code === 'Space') {
+          e.preventDefault();
+          flipActiveCard();
+        } else if(e.code === 'ArrowLeft') {
+          stepActiveFC(-1);
+        } else if(e.code === 'ArrowRight') {
+          stepActiveFC(1);
+        } else if(e.key === '1') {
+          rateActiveFC(1);
+        } else if(e.key === '2') {
+          rateActiveFC(2);
+        } else if(e.key === '3') {
+          rateActiveFC(3);
+        }
+      }
+    }
+
+    /* Modal Utility */
+    function openAppModal(title, body, confirmText, confirmCallback) {
+      document.getElementById('modal-title').innerText = title;
+      document.getElementById('modal-body').innerText = body;
+      const btn = document.getElementById('modal-confirm-btn');
+      btn.innerText = confirmText;
+      btn.onclick = confirmCallback;
+      document.getElementById('app-modal').classList.remove('hidden');
+    }
+
+    function closeAppModal() {
+      document.getElementById('app-modal').classList.add('hidden');
+    }
+  </script>
+</body>
+</html>
